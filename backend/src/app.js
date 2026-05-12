@@ -10,13 +10,13 @@ const app =
 // MIDDLEWARE
 app.use(
   cors({
-    origin:
+    origin: [
+      "http://localhost:5173",
       "https://smart-campus-connect-iota.vercel.app",
+    ],
     credentials: true,
   })
 );
-
-app.use(express.json());
 
 // ROUTES
 const userRoutes =
