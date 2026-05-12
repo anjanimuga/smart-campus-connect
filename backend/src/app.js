@@ -18,6 +18,14 @@ app.use(
   })
 );
 
+app.use(express.json());
+
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
+
 // ROUTES
 const userRoutes =
   require(
@@ -49,8 +57,7 @@ const busRoutes =
     "./routes/bus.routes"
   );
 
-
-  const stationeryRoutes =
+const stationeryRoutes =
   require(
     "./routes/stationery.routes"
   );
