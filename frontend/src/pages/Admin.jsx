@@ -358,6 +358,17 @@ export default function Admin() {
               Bus Admin
             </button>
 
+            <button
+  onClick={() =>
+    navigate(
+      "/stationery-admin"
+    )
+  }
+  className="bg-white/10 border border-white/10 text-white px-6 py-3 rounded-full font-semibold hover:bg-white/20 transition"
+>
+  Stationery Admin
+</button>
+
           </div>
 
         </div>
