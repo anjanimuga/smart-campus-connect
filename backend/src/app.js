@@ -8,7 +8,13 @@ const app =
   express();
 
 // MIDDLEWARE
-app.use(cors());
+app.use(
+  cors({
+    origin:
+      "https://smart-campus-connect-iota.vercel.app",
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 
