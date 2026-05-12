@@ -57,7 +57,8 @@ export default function Dashboard() {
       desc:
         "Order stationery essentials.",
       emoji: "✏️",
-      available: false,
+      route: "/stationery",
+      available: true,
     },
   ];
 
@@ -142,20 +143,6 @@ export default function Dashboard() {
                     {item.title}
 
                   </h2>
-
-                  {
-
-                    !item.available && (
-
-                      <span className="text-xs bg-white/10 px-3 py-1 rounded-full text-gray-300">
-
-                        Soon
-
-                      </span>
-
-                    )
-
-                  }
 
                 </div>
 

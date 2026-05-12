@@ -49,6 +49,12 @@ const busRoutes =
     "./routes/bus.routes"
   );
 
+
+  const stationeryRoutes =
+  require(
+    "./routes/stationery.routes"
+  );
+
 // USE ROUTES
 app.use(
   "/",
@@ -78,6 +84,11 @@ app.use(
 app.use(
   "/buses",
   busRoutes
+);
+
+app.use(
+  "/stationery",
+  stationeryRoutes
 );
 
 module.exports =

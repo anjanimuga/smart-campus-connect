@@ -26,6 +26,9 @@ import BusAdmin from "./pages/BusAdmin";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminRoute from "./components/AdminRoute";
 
+import Stationery from "./pages/Stationery";
+import StationeryAdmin from "./pages/StationeryAdmin";
+
 function App() {
 
   return (
@@ -135,6 +138,15 @@ function App() {
           }
         />
 
+        <Route
+  path="/stationery"
+  element={
+    <ProtectedRoute>
+      <Stationery />
+    </ProtectedRoute>
+  }
+/>
+
         {/* ADMIN ROUTES */}
 
         <Route
@@ -172,6 +184,15 @@ function App() {
             </AdminRoute>
           }
         />
+
+        <Route
+  path="/stationery-admin"
+  element={
+    <AdminRoute>
+      <StationeryAdmin />
+    </AdminRoute>
+  }
+/>
 
       </Routes>
 
