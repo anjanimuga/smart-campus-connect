@@ -142,6 +142,14 @@ const foods = [
   },
 
   {
+    name: "Chicken Shawarma",
+    price: 120,
+    category: "Fast Food",
+    stock: 10,
+    image: "ChickenShawarma.jpg",
+  },
+
+  {
     name: "Veg Meals",
     price: 150,
     category: "Meals",

@@ -191,149 +191,157 @@ export default function Canteen() {
 
         </div>
 
-        {/* FOOD GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+       {/* FOOD GRID */}
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-          {filteredFoods.map(
-            (food) => (
+  {filteredFoods.map(
+    (food) => (
 
-              <div
-                key={food._id}
-                className="bg-white/5 border border-white/10 rounded-3xl overflow-hidden"
-              >
+      <div
+        key={food._id}
+        className="bg-white/5 border border-white/10 rounded-3xl overflow-hidden"
+      >
 
-                {/* IMAGE */}
-                <img
-                  src={`/food/${food.image}`}
-                  alt={food.name}
-                  className="w-full h-56 object-cover"
-                />
+        {/* IMAGE */}
+     <div className="w-full h-48 overflow-hidden bg-gray-800">
 
-                <div className="p-6">
+ <img
+  src={
+    food.image &&
+    food.image.startsWith("http")
+      ? food.image
+      : `/food/${food.image}`
+  }
+  alt={food.name}
+  className="w-full h-full object-cover"
+/>
+</div>
 
-                  {/* TOP */}
-                  <div className="flex justify-between items-start gap-4">
 
-                    <div>
+        {/* CONTENT */}
+        <div className="p-6">
 
-                      <h2 className="text-2xl font-semibold">
-                        {food.name}
-                      </h2>
+          {/* TOP */}
+          <div className="flex justify-between items-start gap-4">
 
-                      <p className="text-gray-400 mt-2">
-                        {
-                          food.category
-                        }
-                      </p>
+            <div>
 
-                    </div>
+              <h2 className="text-2xl font-semibold">
+                {food.name}
+              </h2>
 
-                    {/* OUT OF STOCK BADGE */}
-                    {food.stock <= 0 && (
+              <p className="text-gray-400 mt-2">
+                {food.category}
+              </p>
 
-                      <span className="bg-red-500 text-white px-3 py-1 rounded-full text-sm whitespace-nowrap">
+            </div>
 
-                        Out Of Stock
+            {/* OUT OF STOCK BADGE */}
+            {food.stock <= 0 && (
 
-                      </span>
+              <span className="bg-red-500 text-white px-3 py-1 rounded-full text-sm whitespace-nowrap">
 
-                    )}
+                Out Of Stock
 
-                  </div>
+              </span>
 
-                  {/* PRICE + STOCK */}
-                  <div className="mt-5 flex justify-between items-center">
+            )}
 
-                    <p className="text-2xl font-semibold">
-                      ₹{food.price}
-                    </p>
+          </div>
 
-                    <p className="text-gray-400">
-                      Stock:
-                      {" "}
-                      {food.stock}
-                    </p>
+          {/* PRICE + STOCK */}
+          <div className="mt-5 flex justify-between items-center">
 
-                  </div>
+            <p className="text-2xl font-semibold">
+              ₹{food.price}
+            </p>
 
-                  {/* THICKSHAKE FLAVOURS */}
-                  {food.category
-                    .toLowerCase()
-                    .includes(
-                      "thickshake"
-                    ) && (
+            <p className="text-gray-400">
+              Stock:
+              {" "}
+              {food.stock}
+            </p>
 
-                    <select
-                      onChange={(e) =>
-                        handleFlavourChange(
-                          food._id,
-                          e.target.value
-                        )
-                      }
-                      className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 mt-5 outline-none"
-                    >
+          </div>
 
-                      <option>
-                        Cold Coffee
-                      </option>
+          {/* THICKSHAKE FLAVOURS */}
+          {food.category
+            .toLowerCase()
+            .includes(
+              "thickshake"
+            ) && (
 
-                      <option>
-                        Matcha
-                      </option>
+            <select
+              onChange={(e) =>
+                handleFlavourChange(
+                  food._id,
+                  e.target.value
+                )
+              }
+              className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 mt-5 outline-none"
+            >
 
-                      <option>
-                        Strawberry
-                      </option>
+              <option>
+                Cold Coffee
+              </option>
 
-                      <option>
-                        Caramel
-                      </option>
+              <option>
+                Matcha
+              </option>
 
-                    </select>
+              <option>
+                Strawberry
+              </option>
 
-                  )}
+              <option>
+                Caramel
+              </option>
 
-                  {/* BUTTON */}
-                  {
+            </select>
 
-                    food.stock <= 0 ? (
-
-                      <button
-                        disabled
-                        className="w-full mt-6 bg-red-500 text-white py-4 rounded-2xl cursor-not-allowed font-semibold"
-                      >
-
-                        Out Of Stock
-
-                      </button>
-
-                    ) : (
-
-                      <button
-                        onClick={() =>
-                          handleAddToCart(
-                            food
-                          )
-                        }
-                        className="w-full mt-6 bg-white text-black py-4 rounded-2xl font-semibold hover:bg-gray-200 transition"
-                      >
-
-                        Add To Cart
-
-                      </button>
-
-                    )
-
-                  }
-
-                </div>
-
-              </div>
-
-            )
           )}
 
+          {/* BUTTON */}
+          {
+
+            food.stock <= 0 ? (
+
+              <button
+                disabled
+                className="w-full mt-6 bg-red-500 text-white py-4 rounded-2xl cursor-not-allowed font-semibold"
+              >
+
+                Out Of Stock
+
+              </button>
+
+            ) : (
+
+              <button
+                onClick={() =>
+                  handleAddToCart(
+                    food
+                  )
+                }
+                className="w-full mt-6 bg-white text-black py-4 rounded-2xl font-semibold hover:bg-gray-200 transition"
+              >
+
+                Add To Cart
+
+              </button>
+
+            )
+
+          }
+
         </div>
+
+      </div>
+
+    )
+  )}
+
+</div>
 
       </div>
 

@@ -564,12 +564,21 @@ export default function Admin() {
                     className="bg-black border border-white/10 rounded-2xl p-4 flex gap-4 items-center"
                   >
 
-                    <img
-  src={`/food/${food.image}`}
+                    
+<div className="w-24 h-24 rounded-2xl overflow-hidden bg-gray-800 flex-shrink-0">
+
+<img
+  src={
+    food.image &&
+    food.image.startsWith("http")
+      ? food.image
+      : `/food/${food.image}`
+  }
   alt={food.name}
-  className="w-24 h-24 object-cover rounded-2xl"
+  className="w-full h-full object-cover"
 />
 
+</div>
                     <div className="flex-1">
 
                       <h3 className="text-xl font-semibold mb-1">
