@@ -62,6 +62,11 @@ const stationeryRoutes =
     "./routes/stationery.routes"
   );
 
+  const stationeryOrderRoutes =
+  require(
+    "./routes/stationeryOrder.routes"
+  );
+
 // USE ROUTES
 app.use(
   "/",
@@ -97,6 +102,12 @@ app.use(
   "/stationery",
   stationeryRoutes
 );
+
+app.use(
+  "/stationery-orders",
+  stationeryOrderRoutes
+);
+
 
 module.exports =
   app;

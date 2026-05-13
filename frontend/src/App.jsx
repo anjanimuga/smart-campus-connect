@@ -28,6 +28,8 @@ import AdminRoute from "./components/AdminRoute";
 
 import Stationery from "./pages/Stationery";
 import StationeryAdmin from "./pages/StationeryAdmin";
+import StationeryCart from "./pages/StationeryCart";
+import StationeryOrders from "./pages/StationeryOrders";
 
 function App() {
 
@@ -143,6 +145,24 @@ function App() {
   element={
     <ProtectedRoute>
       <Stationery />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/stationery-cart"
+  element={
+    <ProtectedRoute>
+      <StationeryCart />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/stationery-orders"
+  element={
+    <ProtectedRoute>
+      <StationeryOrders />
     </ProtectedRoute>
   }
 />

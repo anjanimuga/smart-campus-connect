@@ -3,9 +3,16 @@ import {
   useState,
 } from "react";
 
+import {
+  useNavigate,
+} from "react-router-dom";
+
 import API from "../services/api";
 
 export default function Stationery() {
+
+  const navigate =
+    useNavigate();
 
   const [items, setItems] =
     useState([]);
@@ -39,6 +46,50 @@ export default function Stationery() {
 
   }, []);
 
+  // ADD TO CART
+  const addToCart =
+    (item) => {
+
+      const existingCart =
+        JSON.parse(
+          localStorage.getItem(
+            "stationeryCart"
+          )
+        ) || [];
+
+      const existingItem =
+        existingCart.find(
+          (cartItem) =>
+            cartItem._id ===
+            item._id
+        );
+
+      if (existingItem) {
+
+        existingItem.quantity += 1;
+
+      } else {
+
+        existingCart.push({
+          ...item,
+          quantity: 1,
+        });
+
+      }
+
+      localStorage.setItem(
+        "stationeryCart",
+        JSON.stringify(
+          existingCart
+        )
+      );
+
+      alert(
+        "Added to cart"
+      );
+
+    };
+
   return (
 
     <div className="min-h-screen bg-[#151312] text-white px-8 py-10">
@@ -46,15 +97,32 @@ export default function Stationery() {
       <div className="max-w-7xl mx-auto">
 
         {/* HEADER */}
-        <div className="mb-12">
+        <div className="flex justify-between items-center mb-12">
 
-          <h1 className="text-5xl font-semibold mb-3">
-            Stationery Store
-          </h1>
+          <div>
 
-          <p className="text-gray-400">
-            Buy stationery items inside campus.
-          </p>
+            <h1 className="text-5xl font-semibold mb-3">
+              Stationery Store
+            </h1>
+
+            <p className="text-gray-400">
+              Buy stationery items inside campus.
+            </p>
+
+          </div>
+
+          <button
+            onClick={() =>
+              navigate(
+                "/stationery-cart"
+              )
+            }
+            className="bg-white text-black px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition"
+          >
+
+            Cart
+
+          </button>
 
         </div>
 
@@ -94,6 +162,9 @@ export default function Stationery() {
                 </p>
 
                 <button
+                  onClick={() =>
+                    addToCart(item)
+                  }
                   className="w-full bg-white text-black py-3 rounded-2xl font-semibold hover:bg-gray-200 transition"
                 >
 
