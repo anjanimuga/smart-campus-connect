@@ -334,42 +334,62 @@ export default function Admin() {
 
           </div>
 
-          <div className="flex gap-4 flex-wrap">
+         <div className="flex gap-4 flex-wrap">
 
-            <button
-              onClick={() =>
-                navigate(
-                  "/library-admin"
-                )
-              }
-              className="bg-white/10 border border-white/10 text-white px-6 py-3 rounded-full font-semibold hover:bg-white/20 transition"
-            >
-              Library Admin
-            </button>
+  <button
+    onClick={() =>
+      navigate(
+        "/library-admin"
+      )
+    }
+    className="bg-white/10 border border-white/10 text-white px-6 py-3 rounded-full font-semibold hover:bg-white/20 transition"
+  >
 
-            <button
-              onClick={() =>
-                navigate(
-                  "/bus-admin"
-                )
-              }
-              className="bg-white text-black px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition"
-            >
-              Bus Admin
-            </button>
+    Library Admin
 
-            <button
-  onClick={() =>
-    navigate(
-      "/stationery-admin"
-    )
-  }
-  className="bg-white/10 border border-white/10 text-white px-6 py-3 rounded-full font-semibold hover:bg-white/20 transition"
->
-  Stationery Admin
-</button>
+  </button>
 
-          </div>
+  <button
+    onClick={() =>
+      navigate(
+        "/bus-admin"
+      )
+    }
+    className="bg-white text-black px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition"
+  >
+
+    Bus Admin
+
+  </button>
+
+  <button
+    onClick={() =>
+      navigate(
+        "/stationery-admin"
+      )
+    }
+    className="bg-white/10 border border-white/10 text-white px-6 py-3 rounded-full font-semibold hover:bg-white/20 transition"
+  >
+
+    Stationery Admin
+
+  </button>
+
+  <button
+    onClick={() =>
+      navigate(
+        "/print-admin"
+      )
+    }
+    className="bg-white/10 border border-white/10 text-white px-6 py-3 rounded-full font-semibold hover:bg-white/20 transition"
+  >
+
+    Print Admin
+
+  </button>
+
+</div>
+
 
         </div>
 

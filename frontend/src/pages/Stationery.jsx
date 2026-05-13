@@ -97,7 +97,7 @@ export default function Stationery() {
       <div className="max-w-7xl mx-auto">
 
         {/* HEADER */}
-        <div className="flex justify-between items-center mb-12">
+        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-6 mb-12">
 
           <div>
 
@@ -111,18 +111,48 @@ export default function Stationery() {
 
           </div>
 
-          <button
-            onClick={() =>
-              navigate(
-                "/stationery-cart"
-              )
-            }
-            className="bg-white text-black px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition"
-          >
+          <div className="flex flex-wrap gap-4">
 
-            Cart
+            <button
+              onClick={() =>
+                navigate(
+                  "/print-upload"
+                )
+              }
+              className="bg-white/10 text-white px-6 py-3 rounded-full font-semibold hover:bg-white/20 transition"
+            >
 
-          </button>
+              Print / Xerox
+
+            </button>
+
+            <button
+              onClick={() =>
+                navigate(
+                  "/stationery-orders"
+                )
+              }
+              className="bg-white/10 text-white px-6 py-3 rounded-full font-semibold hover:bg-white/20 transition"
+            >
+
+              My Orders
+
+            </button>
+
+            <button
+              onClick={() =>
+                navigate(
+                  "/stationery-cart"
+                )
+              }
+              className="bg-white text-black px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition"
+            >
+
+              Cart
+
+            </button>
+
+          </div>
 
         </div>
 

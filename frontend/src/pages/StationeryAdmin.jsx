@@ -10,6 +10,9 @@ export default function StationeryAdmin() {
   const [items, setItems] =
     useState([]);
 
+  const [orders, setOrders] =
+    useState([]);
+
   const [newItem, setNewItem] =
     useState({
       name: "",
@@ -42,9 +45,34 @@ export default function StationeryAdmin() {
 
     };
 
+  // FETCH ORDERS
+  const fetchOrders =
+    async () => {
+
+      try {
+
+        const res =
+          await API.get(
+            "/stationery-orders"
+          );
+
+        setOrders(
+          res.data
+        );
+
+      } catch (error) {
+
+        console.log(error);
+
+      }
+
+    };
+
   useEffect(() => {
 
     fetchItems();
+
+    fetchOrders();
 
   }, []);
 
@@ -107,6 +135,32 @@ export default function StationeryAdmin() {
 
     };
 
+  // UPDATE ORDER STATUS
+  const updateOrderStatus =
+    async (
+      id,
+      status
+    ) => {
+
+      try {
+
+        await API.put(
+          `/stationery-orders/${id}`,
+          {
+            status,
+          }
+        );
+
+        fetchOrders();
+
+      } catch (error) {
+
+        console.log(error);
+
+      }
+
+    };
+
   return (
 
     <div className="min-h-screen bg-[#151312] text-white px-8 py-10">
@@ -121,7 +175,7 @@ export default function StationeryAdmin() {
           </h1>
 
           <p className="text-gray-400">
-            Manage stationery inventory.
+            Manage stationery inventory and orders.
           </p>
 
         </div>
@@ -219,7 +273,7 @@ export default function StationeryAdmin() {
         </div>
 
         {/* ITEMS */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
 
           {items.map(
             (item) => (
@@ -270,6 +324,159 @@ export default function StationeryAdmin() {
 
             )
           )}
+
+        </div>
+
+        {/* ORDERS SECTION */}
+        <div>
+
+          <h2 className="text-4xl font-semibold mb-10">
+
+            Stationery Orders
+
+          </h2>
+
+          <div className="space-y-8">
+
+            {orders.map(
+              (order) => (
+
+                <div
+                  key={order._id}
+                  className="bg-white/5 border border-white/10 rounded-3xl p-8"
+                >
+
+                  <div className="flex justify-between items-start mb-6">
+
+                    <div>
+
+                      <h3 className="text-2xl font-semibold">
+
+                        {order.userName}
+
+                      </h3>
+
+                      <p className="text-gray-400 mt-2">
+
+                        {new Date(
+                          order.createdAt
+                        ).toLocaleString()}
+
+                      </p>
+
+                    </div>
+
+                    <div className="bg-white text-black px-5 py-2 rounded-full font-semibold">
+
+                      {order.status}
+
+                    </div>
+
+                  </div>
+
+                  <div className="space-y-3 mb-6">
+
+                    {order.items.map(
+                      (
+                        item,
+                        index
+                      ) => (
+
+                        <div
+                          key={index}
+                          className="flex justify-between"
+                        >
+
+                          <p>
+
+                            {item.name}
+                            {" "}
+                            ×
+                            {" "}
+                            {item.quantity}
+
+                          </p>
+
+                          <p>
+
+                            ₹
+                            {item.price *
+                              item.quantity}
+
+                          </p>
+
+                        </div>
+
+                      )
+                    )}
+
+                  </div>
+
+                  <div className="flex justify-between items-center">
+
+                    <h3 className="text-2xl font-bold">
+
+                      Total:
+                      {" "}
+                      ₹
+                      {order.totalPrice}
+
+                    </h3>
+
+                    <div className="flex gap-3">
+
+                      <button
+                        onClick={() =>
+                          updateOrderStatus(
+                            order._id,
+                            "Preparing"
+                          )
+                        }
+                        className="bg-yellow-500 text-black px-4 py-2 rounded-xl font-semibold"
+                      >
+
+                        Preparing
+
+                      </button>
+
+                      <button
+                        onClick={() =>
+                          updateOrderStatus(
+                            order._id,
+                            "Ready"
+                          )
+                        }
+                        className="bg-blue-500 text-white px-4 py-2 rounded-xl font-semibold"
+                      >
+
+                        Ready
+
+                      </button>
+
+                      <button
+                        onClick={() =>
+                          updateOrderStatus(
+                            order._id,
+                            "Delivered"
+                          )
+                        }
+                        className="bg-green-500 text-black px-4 py-2 rounded-xl font-semibold"
+                      >
+
+                        Delivered
+
+                      </button>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              )
+            )}
+
+          </div>
 
         </div>
 

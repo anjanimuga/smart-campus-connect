@@ -31,6 +31,10 @@ import StationeryAdmin from "./pages/StationeryAdmin";
 import StationeryCart from "./pages/StationeryCart";
 import StationeryOrders from "./pages/StationeryOrders";
 
+import PrintUpload from "./pages/PrintUpload";
+import PrintAdmin from "./pages/PrintAdmin";
+
+
 function App() {
 
   return (
@@ -75,6 +79,15 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        <Route
+  path="/print-upload"
+  element={
+    <ProtectedRoute>
+      <PrintUpload />
+    </ProtectedRoute>
+  }
+/>
 
         <Route
           path="/cart"
@@ -214,6 +227,14 @@ function App() {
   }
 />
 
+<Route
+  path="/print-admin"
+  element={
+    <AdminRoute>
+      <PrintAdmin />
+    </AdminRoute>
+  }
+/>
       </Routes>
 
     </BrowserRouter>

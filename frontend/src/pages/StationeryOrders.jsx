@@ -51,93 +51,188 @@ export default function StationeryOrders() {
 
       <div className="max-w-6xl mx-auto">
 
-        <h1 className="text-5xl font-semibold mb-12">
-          My Stationery Orders
-        </h1>
+        {/* HEADER */}
+        <div className="mb-14">
 
-        <div className="space-y-8">
+          <h1 className="text-5xl font-semibold mb-3">
+            My Stationery Orders
+          </h1>
 
-          {orders.map(
-            (order) => (
+          <p className="text-gray-400">
+            View your current and past stationery orders.
+          </p>
 
-              <div
-                key={order._id}
-                className="bg-white/5 border border-white/10 rounded-3xl p-8"
-              >
+        </div>
 
-                <div className="flex justify-between mb-6">
+        {
 
-                  <div>
+          orders.length === 0 ? (
 
-                    <h2 className="text-2xl font-semibold">
-                      Order
-                    </h2>
+            <div className="bg-white/5 border border-white/10 rounded-3xl p-12 text-center">
 
-                    <p className="text-gray-400 mt-2">
-                      {new Date(
-                        order.createdAt
-                      ).toLocaleString()}
-                    </p>
+              <h2 className="text-3xl font-semibold mb-4">
 
-                  </div>
+                No Orders Yet
 
-                  <div className="bg-white text-black px-5 py-2 rounded-full font-semibold h-fit">
+              </h2>
 
-                    {order.status}
+              <p className="text-gray-400">
 
-                  </div>
+                Your stationery orders will appear here.
 
-                </div>
+              </p>
 
-                <div className="space-y-3">
+            </div>
 
-                  {order.items.map(
-                    (
-                      item,
-                      index
-                    ) => (
+          ) : (
 
-                      <div
-                        key={index}
-                        className="flex justify-between"
-                      >
+            <div className="space-y-10">
 
-                        <p>
-                          {item.name}
+              {orders.map(
+                (
+                  order,
+                  index
+                ) => (
+
+                  <div
+                    key={order._id}
+                    className={`rounded-3xl p-8 border ${
+                      index === 0
+                        ? "bg-white/10 border-white/20"
+                        : "bg-white/5 border-white/10"
+                    }`}
+                  >
+
+                    {/* TOP */}
+                    <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-6 mb-8">
+
+                      <div>
+
+                        <h2 className="text-3xl font-semibold mb-2">
+
+                          Order Invoice
+
+                        </h2>
+
+                        <p className="text-gray-400">
+
+                          Order ID:
                           {" "}
-                          ×
-                          {" "}
-                          {item.quantity}
+                          {order._id}
+
                         </p>
 
-                        <p>
-                          ₹
-                          {item.price *
-                            item.quantity}
+                        <p className="text-gray-400 mt-2">
+
+                          {new Date(
+                            order.createdAt
+                          ).toLocaleString()}
+
                         </p>
 
                       </div>
 
-                    )
-                  )}
+                      <div className="flex flex-col items-start md:items-end gap-3">
 
-                </div>
+                        <div className="bg-white text-black px-5 py-2 rounded-full font-semibold">
 
-                <div className="mt-6 text-right text-2xl font-bold">
+                          {order.status}
 
-                  Total:
-                  {" "}
-                  ₹
-                  {order.totalPrice}
+                        </div>
 
-                </div>
+                        {
 
-              </div>
+                          index === 0 && (
 
-            )
-          )}
+                            <div className="bg-green-500 text-black px-4 py-2 rounded-full text-sm font-semibold">
 
-        </div>
+                              Latest Order
+
+                            </div>
+
+                          )
+
+                        }
+
+                      </div>
+
+                    </div>
+
+                    {/* ITEMS */}
+                    <div className="space-y-4 mb-8">
+
+                      {order.items.map(
+                        (
+                          item,
+                          itemIndex
+                        ) => (
+
+                          <div
+                            key={itemIndex}
+                            className="flex justify-between items-center border-b border-white/10 pb-4"
+                          >
+
+                            <div>
+
+                              <h3 className="text-xl font-medium">
+
+                                {item.name}
+
+                              </h3>
+
+                              <p className="text-gray-400 mt-1">
+
+                                Quantity:
+                                {" "}
+                                {item.quantity}
+
+                              </p>
+
+                            </div>
+
+                            <p className="text-xl font-semibold">
+
+                              ₹
+                              {item.price *
+                                item.quantity}
+
+                            </p>
+
+                          </div>
+
+                        )
+                      )}
+
+                    </div>
+
+                    {/* TOTAL */}
+                    <div className="flex justify-between items-center">
+
+                      <h3 className="text-2xl font-semibold">
+
+                        Total Amount
+
+                      </h3>
+
+                      <p className="text-4xl font-bold">
+
+                        ₹
+                        {order.totalPrice}
+
+                      </p>
+
+                    </div>
+
+                  </div>
+
+                )
+              )}
+
+            </div>
+
+          )
+
+        }
 
       </div>
 

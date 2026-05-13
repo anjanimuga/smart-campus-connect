@@ -7,6 +7,14 @@ const cors =
 const app =
   express();
 
+const path =
+  require("path");
+
+const printRequestRoutes =
+  require(
+    "./routes/printRequest.routes"
+  );
+
 // MIDDLEWARE
 app.use(
   cors({
@@ -24,6 +32,16 @@ app.use(
   express.urlencoded({
     extended: true,
   })
+);
+
+app.use(
+  "/uploads",
+  express.static(
+    path.join(
+      __dirname,
+      "../uploads"
+    )
+  )
 );
 
 // ROUTES
@@ -108,6 +126,10 @@ app.use(
   stationeryOrderRoutes
 );
 
+app.use(
+  "/print-requests",
+  printRequestRoutes
+);
 
 module.exports =
   app;
