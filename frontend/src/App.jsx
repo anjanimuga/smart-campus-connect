@@ -33,7 +33,7 @@ import StationeryOrders from "./pages/StationeryOrders";
 
 import PrintUpload from "./pages/PrintUpload";
 import PrintAdmin from "./pages/PrintAdmin";
-
+import PrintOrders from "./pages/PrintOrders";
 
 function App() {
 
@@ -85,6 +85,15 @@ function App() {
   element={
     <ProtectedRoute>
       <PrintUpload />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/print-orders"
+  element={
+    <ProtectedRoute>
+      <PrintOrders />
     </ProtectedRoute>
   }
 />

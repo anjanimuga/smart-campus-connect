@@ -114,6 +114,22 @@ export default function Stationery() {
           <div className="flex flex-wrap gap-4">
 
             <button
+  onClick={() =>
+    navigate(
+      "/print-orders"
+    )
+  }
+  className="bg-white/10 text-white px-6 py-3 rounded-full font-semibold hover:bg-white/20 transition"
+>
+
+  My Print Requests
+
+</button>
+
+
+
+
+            <button
               onClick={() =>
                 navigate(
                   "/print-upload"
