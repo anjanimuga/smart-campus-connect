@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 import {
   useNavigate,
@@ -85,15 +86,15 @@ export default function Login() {
           res.data.token
         );
 
-       console.log(
-  "LOGIN RESPONSE:",
-  res.data
-);
+        console.log(
+          "LOGIN RESPONSE:",
+          res.data
+        );
 
-localStorage.setItem(
-  "role",
-  res.data.role
-);
+        localStorage.setItem(
+          "role",
+          res.data.role
+        );
 
         localStorage.setItem(
           "user",
@@ -138,98 +139,177 @@ localStorage.setItem(
 
   return (
 
-    <div className="min-h-screen flex items-center justify-center bg-[#151312] text-white px-6">
+    <div className="relative min-h-screen overflow-hidden bg-[#f8f4ff] font-['Outfit'] flex items-center justify-center px-6">
 
-      <form
-        onSubmit={
-          handleSubmit
-        }
-        className="bg-white/5 border border-white/10 p-10 rounded-3xl w-full max-w-md"
+      {/* BACKGROUND BLOBS */}
+
+      <motion.div
+        animate={{
+          x: [0, 40, 0],
+          y: [0, -30, 0],
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+        }}
+        className="absolute top-[-10%] left-[-5%] w-[500px] h-[500px] rounded-full bg-pink-200/40 blur-[120px]"
+      />
+
+      <motion.div
+        animate={{
+          x: [0, -40, 0],
+          y: [0, 30, 0],
+        }}
+        transition={{
+          duration: 12,
+          repeat: Infinity,
+        }}
+        className="absolute bottom-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-violet-200/40 blur-[120px]"
+      />
+
+      {/* LOGIN CARD */}
+
+      <motion.div
+        initial={{
+          opacity: 0,
+          y: 40,
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+        }}
+        transition={{
+          duration: 1,
+        }}
+        className="relative z-10 w-full max-w-md"
       >
 
-        <h1 className="text-4xl font-semibold mb-8 text-center">
-
-          {
-            isRegister
-              ? "Register"
-              : "Login"
+        <form
+          onSubmit={
+            handleSubmit
           }
-
-        </h1>
-
-        {
-
-          isRegister && (
-
-            <input
-              type="text"
-              name="name"
-              placeholder="Name"
-              onChange={
-                handleChange
-              }
-              className="w-full mb-5 px-5 py-4 rounded-2xl bg-black border border-white/10 outline-none"
-              required
-            />
-
-          )
-
-        }
-
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          onChange={
-            handleChange
-          }
-          className="w-full mb-5 px-5 py-4 rounded-2xl bg-black border border-white/10 outline-none"
-          required
-        />
-
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          onChange={
-            handleChange
-          }
-          className="w-full mb-8 px-5 py-4 rounded-2xl bg-black border border-white/10 outline-none"
-          required
-        />
-
-        <button
-          type="submit"
-          className="w-full bg-white text-black py-4 rounded-2xl font-semibold hover:bg-gray-200 transition"
+          className="bg-white/40 backdrop-blur-3xl border border-white/50 rounded-[40px] p-10 shadow-[0_20px_80px_rgba(180,140,255,0.15)]"
         >
 
+          {/* TOP BADGE */}
+
+          <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/50 border border-white/50 mb-8">
+
+            <span className="w-3 h-3 rounded-full bg-violet-500" />
+
+            <p className="text-slate-700 font-semibold text-sm">
+              CampusConnect Access
+            </p>
+
+          </div>
+
+          {/* HEADING */}
+
+          <h1 className="text-5xl font-black text-slate-900 mb-3 tracking-tight">
+
+            {
+              isRegister
+                ? "Create Account"
+                : "Welcome Back"
+            }
+
+          </h1>
+
+          <p className="text-slate-600 text-lg mb-10 leading-relaxed">
+
+            {
+              isRegister
+                ? "Join your smart campus ecosystem."
+                : "Login to continue your campus experience."
+            }
+
+          </p>
+
+          {/* NAME */}
+
           {
-            isRegister
-              ? "Register"
-              : "Login"
-          }
 
-        </button>
+            isRegister && (
 
-        <button
-          type="button"
-          onClick={() =>
-            setIsRegister(
-              !isRegister
+              <input
+                type="text"
+                name="name"
+                placeholder="Full Name"
+                onChange={
+                  handleChange
+                }
+                className="w-full mb-5 px-6 py-5 rounded-3xl bg-white/50 border border-white/50 outline-none text-slate-800 placeholder:text-slate-500 backdrop-blur-xl focus:ring-2 focus:ring-violet-300 transition"
+                required
+              />
+
             )
-          }
-          className="w-full mt-5 text-gray-400 hover:text-white transition"
-        >
 
-          {
-            isRegister
-              ? "Already have an account? Login"
-              : "Don't have an account? Register"
           }
 
-        </button>
+          {/* EMAIL */}
 
-      </form>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            onChange={
+              handleChange
+            }
+            className="w-full mb-5 px-6 py-5 rounded-3xl bg-white/50 border border-white/50 outline-none text-slate-800 placeholder:text-slate-500 backdrop-blur-xl focus:ring-2 focus:ring-violet-300 transition"
+            required
+          />
+
+          {/* PASSWORD */}
+
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            onChange={
+              handleChange
+            }
+            className="w-full mb-8 px-6 py-5 rounded-3xl bg-white/50 border border-white/50 outline-none text-slate-800 placeholder:text-slate-500 backdrop-blur-xl focus:ring-2 focus:ring-violet-300 transition"
+            required
+          />
+
+          {/* SUBMIT BUTTON */}
+
+          <button
+            type="submit"
+            className="w-full py-5 rounded-3xl bg-gradient-to-r from-violet-500 to-pink-400 text-white text-xl font-semibold shadow-[0_15px_50px_rgba(180,140,255,0.35)] hover:scale-[1.02] transition duration-300"
+          >
+
+            {
+              isRegister
+                ? "Create Account"
+                : "Login"
+            }
+
+          </button>
+
+          {/* TOGGLE BUTTON */}
+
+          <button
+            type="button"
+            onClick={() =>
+              setIsRegister(
+                !isRegister
+              )
+            }
+            className="w-full mt-6 text-slate-600 hover:text-violet-500 transition font-medium"
+          >
+
+            {
+              isRegister
+                ? "Already have an account? Login"
+                : "Don't have an account? Register"
+            }
+
+          </button>
+
+        </form>
+
+      </motion.div>
 
     </div>
 

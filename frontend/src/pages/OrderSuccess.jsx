@@ -2,6 +2,16 @@ import { useLocation } from "react-router-dom";
 
 import { useNavigate } from "react-router-dom";
 
+import { motion } from "framer-motion";
+
+import {
+  CheckCircle2,
+  Receipt,
+  Clock3,
+  Printer,
+  ClipboardList,
+} from "lucide-react";
+
 export default function OrderSuccess() {
 
   const location = useLocation();
@@ -15,21 +25,40 @@ export default function OrderSuccess() {
 
     return (
 
-      <div className="min-h-screen bg-[#151312] text-white flex items-center justify-center">
+      <div className="min-h-screen bg-[#faf7f2] flex items-center justify-center px-6 font-['Outfit']">
 
-        <div className="text-center">
+        <div className="bg-white border border-[#ece7df] rounded-[34px] p-14 shadow-sm text-center max-w-xl w-full">
 
-          <h1 className="text-4xl font-semibold mb-6">
+          <div className="w-24 h-24 rounded-full bg-[#f7f2eb] flex items-center justify-center mx-auto mb-8">
+
+            <Receipt
+              size={42}
+              className="text-[#1f1b16]"
+            />
+
+          </div>
+
+          <h1 className="text-5xl font-black text-[#1f1b16] mb-5">
+
             No Order Found
+
           </h1>
+
+          <p className="text-[#8c8378] text-lg mb-10">
+
+            We couldn’t locate any active order information.
+
+          </p>
 
           <button
             onClick={() =>
               navigate("/canteen")
             }
-            className="bg-white text-black px-6 py-3 rounded-full"
+            className="bg-[#1f1b16] text-white px-8 py-4 rounded-2xl font-semibold hover:opacity-90 transition"
           >
+
             Back to Canteen
+
           </button>
 
         </div>
@@ -41,139 +70,208 @@ export default function OrderSuccess() {
   }
 
   return (
-    <div className="min-h-screen bg-[#151312] text-white px-8 py-10">
 
-      <div className="max-w-3xl mx-auto">
+    <div className="min-h-screen bg-[#faf7f2] px-6 py-10 font-['Outfit']">
 
-        <div className="bg-white/5 border border-white/10 rounded-3xl p-10">
+      <div className="max-w-4xl mx-auto">
 
-          {/* HEADER */}
-          <div className="text-center mb-10">
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 30,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 0.5,
+          }}
+          className="bg-white border border-[#ece7df] rounded-[38px] p-10 shadow-[0_10px_40px_rgba(0,0,0,0.04)]"
+        >
 
-            <h1 className="text-5xl font-semibold mb-4">
-              Order Placed
+          {/* SUCCESS HEADER */}
+
+          <div className="text-center mb-14">
+
+            <div className="w-28 h-28 rounded-full bg-[#f7f2eb] flex items-center justify-center mx-auto mb-8">
+
+              <CheckCircle2
+                size={54}
+                className="text-green-500"
+              />
+
+            </div>
+
+            <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-[#f7f2eb] text-[#8a7864] text-sm font-medium mb-6">
+
+              <span className="w-2.5 h-2.5 rounded-full bg-green-400" />
+
+              Order Successfully Placed
+
+            </div>
+
+            <h1 className="text-6xl font-black text-[#1f1b16] tracking-tight mb-5">
+
+              Order Confirmed
+
             </h1>
 
-            <p className="text-gray-400">
-              Your order has been placed successfully.
+            <p className="text-[#6b6258] text-xl leading-relaxed max-w-2xl mx-auto">
+
+              Your order has been received successfully and is now being prepared by the campus canteen.
+
             </p>
 
           </div>
 
-          {/* CUSTOMER DETAILS */}
-          <div className="mb-10 space-y-4">
+          {/* ORDER DETAILS */}
 
-            <div className="flex justify-between">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
 
-              <p className="text-gray-400">
-                Name
+            <div className="bg-[#faf7f2] border border-[#ece7df] rounded-[28px] p-7">
+
+              <p className="text-[#8c8378] mb-3">
+                Customer Name
               </p>
 
-              <p>
+              <h2 className="text-2xl font-black text-[#1f1b16]">
+
                 {
                   order.customerName
                 }
-              </p>
+
+              </h2>
 
             </div>
 
-            <div className="flex justify-between">
+            <div className="bg-[#faf7f2] border border-[#ece7df] rounded-[28px] p-7">
 
-              <p className="text-gray-400">
-                Contact
+              <p className="text-[#8c8378] mb-3">
+                Contact Number
               </p>
 
-              <p>
+              <h2 className="text-2xl font-black text-[#1f1b16]">
+
                 {
                   order.phoneNumber
                 }
-              </p>
+
+              </h2>
 
             </div>
 
-            <div className="flex justify-between">
+            <div className="bg-[#faf7f2] border border-[#ece7df] rounded-[28px] p-7">
 
-              <p className="text-gray-400">
+              <p className="text-[#8c8378] mb-3">
                 Order Number
               </p>
 
-              <p>
+              <h2 className="text-2xl font-black text-[#1f1b16]">
+
                 {
                   order.orderNumber
                 }
-              </p>
+
+              </h2>
 
             </div>
 
-            <div className="flex justify-between">
+            <div className="bg-[#faf7f2] border border-[#ece7df] rounded-[28px] p-7">
 
-              <p className="text-gray-400">
+              <p className="text-[#8c8378] mb-3">
                 Token Number
               </p>
 
-              <p>
+              <h2 className="text-2xl font-black text-[#1f1b16]">
+
                 #
                 {
                   order.tokenNumber
                 }
-              </p>
+
+              </h2>
 
             </div>
 
-            <div className="flex justify-between">
+          </div>
 
-              <p className="text-gray-400">
-                Order Placed
-              </p>
+          {/* PICKUP + STATUS */}
 
-              <p>
+          <div className="flex flex-col lg:flex-row gap-8 mb-12">
 
-                {new Date(
-                  order.createdAt
-                ).toLocaleString()}
+            <div className="flex-1 bg-[#faf7f2] border border-[#ece7df] rounded-[28px] p-7">
 
-              </p>
+              <div className="flex items-center gap-3 mb-5">
 
-            </div>
+                <Clock3
+                  size={22}
+                  className="text-[#1f1b16]"
+                />
 
-            <div className="flex justify-between">
+                <p className="text-[#8c8378]">
+                  Pickup Time
+                </p>
 
-              <p className="text-gray-400">
-                Pickup Time
-              </p>
+              </div>
 
-              <p>
+              <h2 className="text-4xl font-black text-[#1f1b16]">
+
                 {
                   order.pickupTime
                 }
-              </p>
+
+              </h2>
 
             </div>
 
-            <div className="flex justify-between">
+            <div className="flex-1 bg-[#faf7f2] border border-[#ece7df] rounded-[28px] p-7">
 
-              <p className="text-gray-400">
-                Status
-              </p>
+              <div className="flex items-center gap-3 mb-5">
 
-              <p className="text-yellow-400 font-semibold">
+                <Receipt
+                  size={22}
+                  className="text-[#1f1b16]"
+                />
+
+                <p className="text-[#8c8378]">
+                  Current Status
+                </p>
+
+              </div>
+
+              <div className="inline-flex bg-yellow-100 text-yellow-700 px-5 py-3 rounded-full font-semibold">
+
                 {
                   order.status
                 }
-              </p>
+
+              </div>
 
             </div>
 
           </div>
 
           {/* ITEMS */}
-          <div className="border-t border-white/10 pt-8">
 
-            <h2 className="text-2xl font-semibold mb-6">
-              Ordered Items
-            </h2>
+          <div className="border-t border-[#ece7df] pt-10">
 
-            <div className="space-y-4">
+            <div className="flex items-center gap-3 mb-8">
+
+              <ClipboardList
+                size={24}
+                className="text-[#1f1b16]"
+              />
+
+              <h2 className="text-3xl font-black text-[#1f1b16]">
+
+                Ordered Items
+
+              </h2>
+
+            </div>
+
+            <div className="space-y-5">
 
               {order.items.map(
                 (
@@ -183,40 +281,60 @@ export default function OrderSuccess() {
 
                   <div
                     key={index}
-                    className="flex justify-between"
+                    className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 border border-[#ece7df] rounded-[24px] p-6 bg-[#faf7f2]"
                   >
 
                     <div>
 
-                      <p>
+                      <h3 className="text-2xl font-bold text-[#1f1b16] mb-2">
+
                         {
                           item.name
-                        }{" "}
-                        ×{" "}
-                        {
-                          item.quantity
                         }
+
+                      </h3>
+
+                      <p className="text-[#8c8378]">
+
+                        Quantity:
+                        {" "}
+                        <span className="font-semibold text-[#1f1b16]">
+
+                          {
+                            item.quantity
+                          }
+
+                        </span>
+
                       </p>
 
                       {item.flavour && (
 
-                        <p className="text-sm text-gray-400 mt-1">
+                        <p className="text-[#8c8378] mt-2">
+
                           Flavour:
                           {" "}
-                          {
-                            item.flavour
-                          }
+                          <span className="font-semibold text-[#1f1b16]">
+
+                            {
+                              item.flavour
+                            }
+
+                          </span>
+
                         </p>
 
                       )}
 
                     </div>
 
-                    <p>
+                    <h2 className="text-3xl font-black text-[#1f1b16]">
+
                       ₹
                       {item.price *
                         item.quantity}
-                    </p>
+
+                    </h2>
 
                   </div>
 
@@ -228,45 +346,75 @@ export default function OrderSuccess() {
           </div>
 
           {/* TOTAL */}
-          <div className="border-t border-white/10 mt-8 pt-8 flex justify-between items-center">
 
-            <h2 className="text-3xl font-semibold">
-              Total
-            </h2>
+          <div className="border-t border-[#ece7df] mt-12 pt-10 flex flex-col lg:flex-row lg:justify-between lg:items-center gap-6">
 
-            <h2 className="text-4xl font-semibold">
-              ₹{order.total}
-            </h2>
+            <div>
+
+              <p className="text-[#8c8378] text-lg mb-2">
+
+                Total Amount
+
+              </p>
+
+              <h2 className="text-6xl font-black text-[#1f1b16]">
+
+                ₹{order.total}
+
+              </h2>
+
+            </div>
+
+            <div className="bg-[#f7f2eb] px-6 py-4 rounded-2xl">
+
+              <p className="text-[#6b6258] font-medium">
+
+                Estimated preparation time: 15 mins
+
+              </p>
+
+            </div>
 
           </div>
 
           {/* BUTTONS */}
-          <div className="flex gap-4 mt-10">
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-12">
 
             <button
               onClick={() =>
                 navigate("/orders")
               }
-              className="flex-1 bg-white text-black py-4 rounded-2xl font-semibold"
+              className="flex items-center justify-center gap-3 bg-[#1f1b16] text-white py-5 rounded-2xl font-semibold hover:opacity-90 transition"
             >
+
+              <ClipboardList size={20} />
+
               View Orders
+
             </button>
 
             <button
               onClick={() =>
                 window.print()
               }
-              className="flex-1 bg-green-500 text-black py-4 rounded-2xl font-semibold"
+              className="flex items-center justify-center gap-3 bg-[#f7f2eb] border border-[#ece7df] text-[#1f1b16] py-5 rounded-2xl font-semibold hover:bg-[#efe8de] transition"
             >
+
+              <Printer size={20} />
+
               Print Receipt
+
             </button>
 
           </div>
 
-        </div>
+        </motion.div>
 
       </div>
 
     </div>
+
   );
+
 }

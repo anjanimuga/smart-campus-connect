@@ -7,6 +7,21 @@ import {
   useNavigate,
 } from "react-router-dom";
 
+import {
+  motion,
+} from "framer-motion";
+
+import {
+  LibraryBig,
+  Armchair,
+  Plus,
+  Trash2,
+  Unlock,
+  Users,
+  CheckCircle2,
+  XCircle,
+} from "lucide-react";
+
 import API from "../services/api";
 
 export default function LibraryAdmin() {
@@ -25,6 +40,7 @@ export default function LibraryAdmin() {
     });
 
   // FETCH SEATS
+
   const fetchSeats =
     async () => {
 
@@ -66,6 +82,7 @@ export default function LibraryAdmin() {
   }, []);
 
   // ADD SEAT
+
   const addSeat =
     async () => {
 
@@ -93,6 +110,7 @@ export default function LibraryAdmin() {
     };
 
   // DELETE SEAT
+
   const deleteSeat =
     async (id) => {
 
@@ -113,6 +131,7 @@ export default function LibraryAdmin() {
     };
 
   // RELEASE SEAT
+
   const releaseSeat =
     async (id) => {
 
@@ -133,6 +152,7 @@ export default function LibraryAdmin() {
     };
 
   // ANALYTICS
+
   const totalSeats =
     seats.length;
 
@@ -148,73 +168,125 @@ export default function LibraryAdmin() {
 
   return (
 
-    <div className="min-h-screen bg-[#151312] text-white px-8 py-10">
+    <div className="min-h-screen bg-[#f6f7fb] px-8 py-8 font-['Outfit'] text-[#111111]">
 
       <div className="max-w-7xl mx-auto">
 
         {/* HEADER */}
-        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-6 mb-14">
+
+        <div className="flex flex-col xl:flex-row xl:justify-between xl:items-center gap-8 mb-14">
 
           <div>
 
-            <h1 className="text-5xl font-semibold mb-3">
+            <p className="text-[#7b7b7b] mb-3 font-medium">
+
+              Campus Library Management
+
+            </p>
+
+            <h1 className="text-6xl font-black tracking-tight mb-4">
+
               Library Admin
+
             </h1>
 
-            <p className="text-gray-400 text-lg">
-              Manage library seating and bookings.
+            <p className="text-[#6d6d6d] text-lg">
+
+              Manage seat availability and student bookings.
+
             </p>
 
           </div>
 
-         <button
-  onClick={() =>
-    navigate(
-      "/book-admin"
-    )
-  }
-  className="bg-white text-black px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition"
->
-  Book Inventory
-</button>
+          <button
+            onClick={() =>
+              navigate(
+                "/book-admin"
+              )
+            }
+            className="bg-[#111111] text-white px-7 py-4 rounded-2xl font-semibold hover:opacity-90 transition flex items-center gap-3 w-fit"
+          >
+
+            <LibraryBig size={20} />
+
+            Book Inventory
+
+          </button>
 
         </div>
 
         {/* ANALYTICS */}
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-14">
 
-          <div className="bg-white/5 border border-white/10 rounded-3xl p-8">
+          <div className="bg-white border border-[#ececec] rounded-[32px] p-8 shadow-sm">
 
-            <p className="text-gray-400 mb-3">
+            <div className="w-16 h-16 rounded-3xl bg-[#f4f4f4] flex items-center justify-center mb-6">
+
+              <Armchair size={28} />
+
+            </div>
+
+            <p className="text-[#7a7a7a] mb-3">
+
               Total Seats
+
             </p>
 
-            <h2 className="text-5xl font-semibold">
+            <h2 className="text-5xl font-black tracking-tight">
+
               {totalSeats}
+
             </h2>
 
           </div>
 
-          <div className="bg-white/5 border border-white/10 rounded-3xl p-8">
+          <div className="bg-white border border-[#ececec] rounded-[32px] p-8 shadow-sm">
 
-            <p className="text-gray-400 mb-3">
+            <div className="w-16 h-16 rounded-3xl bg-red-50 flex items-center justify-center mb-6">
+
+              <Users
+                size={28}
+                className="text-red-500"
+              />
+
+            </div>
+
+            <p className="text-[#7a7a7a] mb-3">
+
               Occupied Seats
+
             </p>
 
-            <h2 className="text-5xl font-semibold text-red-400">
+            <h2 className="text-5xl font-black tracking-tight text-red-500">
+
               {occupiedSeats}
+
             </h2>
 
           </div>
 
-          <div className="bg-white/5 border border-white/10 rounded-3xl p-8">
+          <div className="bg-white border border-[#ececec] rounded-[32px] p-8 shadow-sm">
 
-            <p className="text-gray-400 mb-3">
+            <div className="w-16 h-16 rounded-3xl bg-green-50 flex items-center justify-center mb-6">
+
+              <CheckCircle2
+                size={28}
+                className="text-green-600"
+              />
+
+            </div>
+
+            <p className="text-[#7a7a7a] mb-3">
+
               Available Seats
+
             </p>
 
-            <h2 className="text-5xl font-semibold text-green-400">
+            <h2 className="text-5xl font-black tracking-tight text-green-600">
+
               {availableSeats}
+
             </h2>
 
           </div>
@@ -222,11 +294,37 @@ export default function LibraryAdmin() {
         </div>
 
         {/* ADD SEAT */}
-        <div className="bg-white/5 border border-white/10 rounded-3xl p-8 mb-14">
 
-          <h2 className="text-3xl font-semibold mb-8">
-            Add Library Seat
-          </h2>
+        <div className="bg-white border border-[#ececec] rounded-[36px] p-8 shadow-sm mb-14">
+
+          <div className="flex items-center gap-4 mb-8">
+
+            <div className="w-16 h-16 rounded-3xl bg-[#eef2ff] flex items-center justify-center">
+
+              <Plus
+                size={28}
+                className="text-blue-600"
+              />
+
+            </div>
+
+            <div>
+
+              <h2 className="text-3xl font-black tracking-tight">
+
+                Add Library Seat
+
+              </h2>
+
+              <p className="text-[#7a7a7a]">
+
+                Create new study seating areas
+
+              </p>
+
+            </div>
+
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
 
@@ -243,7 +341,7 @@ export default function LibraryAdmin() {
                     e.target.value,
                 })
               }
-              className="bg-black border border-white/10 rounded-2xl px-5 py-4 outline-none"
+              className="bg-[#f8f8f8] border border-[#ececec] rounded-2xl px-5 py-4 outline-none"
             />
 
             <input
@@ -259,7 +357,7 @@ export default function LibraryAdmin() {
                     e.target.value,
                 })
               }
-              className="bg-black border border-white/10 rounded-2xl px-5 py-4 outline-none"
+              className="bg-[#f8f8f8] border border-[#ececec] rounded-2xl px-5 py-4 outline-none"
             />
 
             <input
@@ -275,42 +373,78 @@ export default function LibraryAdmin() {
                     e.target.value,
                 })
               }
-              className="bg-black border border-white/10 rounded-2xl px-5 py-4 outline-none"
+              className="bg-[#f8f8f8] border border-[#ececec] rounded-2xl px-5 py-4 outline-none"
             />
 
           </div>
 
           <button
             onClick={addSeat}
-            className="mt-8 bg-white text-black px-7 py-4 rounded-full font-semibold hover:bg-gray-200 transition"
+            className="mt-8 bg-[#111111] text-white px-8 py-4 rounded-2xl font-semibold hover:opacity-90 transition"
           >
+
             Add Seat
+
           </button>
 
         </div>
 
-        {/* SEATS */}
+        {/* SEAT GRID */}
+
         <div>
 
-          <h2 className="text-4xl font-semibold mb-8">
-            Library Seats
-          </h2>
+          <div className="flex items-center gap-4 mb-10">
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="w-16 h-16 rounded-3xl bg-[#eef2ff] flex items-center justify-center">
+
+              <LibraryBig
+                size={28}
+                className="text-blue-600"
+              />
+
+            </div>
+
+            <div>
+
+              <h2 className="text-5xl font-black tracking-tight">
+
+                Library Seats
+
+              </h2>
+
+              <p className="text-[#7a7a7a] mt-1">
+
+                Live seat booking management
+
+              </p>
+
+            </div>
+
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
 
             {seats.map(
               (seat) => (
 
-                <div
+                <motion.div
                   key={seat._id}
-                  className="bg-white/5 border border-white/10 rounded-3xl p-7"
+                  whileHover={{
+                    y: -4,
+                  }}
+                  transition={{
+                    duration: 0.2,
+                  }}
+                  className="bg-white border border-[#ececec] rounded-[32px] p-7 shadow-sm"
                 >
 
-                  <div className="flex justify-between items-start mb-6">
+                  {/* TOP */}
+
+                  <div className="flex justify-between items-start mb-8">
 
                     <div>
 
-                      <h2 className="text-3xl font-semibold mb-2">
+                      <h2 className="text-4xl font-black tracking-tight mb-3">
 
                         {
                           seat.seatNumber
@@ -318,7 +452,7 @@ export default function LibraryAdmin() {
 
                       </h2>
 
-                      <p className="text-gray-400">
+                      <p className="text-[#6d6d6d]">
 
                         Floor:
                         {" "}
@@ -328,7 +462,7 @@ export default function LibraryAdmin() {
 
                       </p>
 
-                      <p className="text-gray-400 mt-1">
+                      <p className="text-[#6d6d6d] mt-1">
 
                         {
                           seat.section
@@ -342,7 +476,9 @@ export default function LibraryAdmin() {
 
                       seat.isBooked ? (
 
-                        <div className="bg-red-500 text-white px-4 py-2 rounded-full text-sm">
+                        <div className="bg-red-50 text-red-600 px-4 py-2 rounded-2xl text-sm font-semibold flex items-center gap-2">
+
+                          <XCircle size={16} />
 
                           Occupied
 
@@ -350,7 +486,9 @@ export default function LibraryAdmin() {
 
                       ) : (
 
-                        <div className="bg-green-500 text-black px-4 py-2 rounded-full text-sm font-semibold">
+                        <div className="bg-green-50 text-green-600 px-4 py-2 rounded-2xl text-sm font-semibold flex items-center gap-2">
+
+                          <CheckCircle2 size={16} />
 
                           Available
 
@@ -362,17 +500,21 @@ export default function LibraryAdmin() {
 
                   </div>
 
+                  {/* BOOKED BY */}
+
                   {
 
                     seat.isBooked && (
 
-                      <div className="mb-6">
+                      <div className="bg-[#fafafa] border border-[#ececec] rounded-3xl p-5 mb-6">
 
-                        <p className="text-gray-400 text-sm">
+                        <p className="text-[#8a8a8a] text-sm mb-2">
+
                           Booked By
+
                         </p>
 
-                        <p className="text-lg mt-1">
+                        <p className="text-xl font-semibold">
 
                           {
                             seat.bookedBy
@@ -386,6 +528,8 @@ export default function LibraryAdmin() {
 
                   }
 
+                  {/* BUTTONS */}
+
                   <div className="flex gap-4">
 
                     {
@@ -398,8 +542,10 @@ export default function LibraryAdmin() {
                               seat._id
                             )
                           }
-                          className="flex-1 bg-yellow-500 text-black py-3 rounded-2xl font-semibold"
+                          className="flex-1 bg-amber-100 text-amber-700 py-4 rounded-2xl font-semibold hover:bg-amber-200 transition flex items-center justify-center gap-2"
                         >
+
+                          <Unlock size={18} />
 
                           Release
 
@@ -415,8 +561,10 @@ export default function LibraryAdmin() {
                           seat._id
                         )
                       }
-                      className="flex-1 bg-red-500 text-white py-3 rounded-2xl font-semibold"
+                      className="flex-1 bg-red-50 text-red-600 py-4 rounded-2xl font-semibold hover:bg-red-100 transition flex items-center justify-center gap-2"
                     >
+
+                      <Trash2 size={18} />
 
                       Delete
 
@@ -424,7 +572,7 @@ export default function LibraryAdmin() {
 
                   </div>
 
-                </div>
+                </motion.div>
 
               )
             )}

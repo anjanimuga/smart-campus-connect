@@ -3,6 +3,21 @@ import {
   useState,
 } from "react";
 
+import {
+  motion,
+} from "framer-motion";
+
+import {
+  PencilRuler,
+  Package,
+  Plus,
+  Trash2,
+  ClipboardList,
+  BadgeCheck,
+  Clock3,
+  IndianRupee,
+} from "lucide-react";
+
 import API from "../services/api";
 
 export default function StationeryAdmin() {
@@ -23,6 +38,7 @@ export default function StationeryAdmin() {
     });
 
   // FETCH ITEMS
+
   const fetchItems =
     async () => {
 
@@ -46,6 +62,7 @@ export default function StationeryAdmin() {
     };
 
   // FETCH ORDERS
+
   const fetchOrders =
     async () => {
 
@@ -77,6 +94,7 @@ export default function StationeryAdmin() {
   }, []);
 
   // ADD ITEM
+
   const addItem =
     async () => {
 
@@ -116,6 +134,7 @@ export default function StationeryAdmin() {
     };
 
   // DELETE ITEM
+
   const deleteItem =
     async (id) => {
 
@@ -135,7 +154,8 @@ export default function StationeryAdmin() {
 
     };
 
-  // UPDATE ORDER STATUS
+  // UPDATE STATUS
+
   const updateOrderStatus =
     async (
       id,
@@ -161,33 +181,166 @@ export default function StationeryAdmin() {
 
     };
 
+  // STATS
+
+  const totalRevenue =
+    orders.reduce(
+      (
+        total,
+        order
+      ) =>
+        total +
+        (
+          order.totalPrice || 0
+        ),
+      0
+    );
+
   return (
 
-    <div className="min-h-screen bg-[#151312] text-white px-8 py-10">
+    <div className="min-h-screen bg-[#f6f7fb] px-8 py-8 font-['Outfit'] text-[#111111]">
 
       <div className="max-w-7xl mx-auto">
 
         {/* HEADER */}
-        <div className="mb-12">
 
-          <h1 className="text-5xl font-semibold mb-3">
+        <div className="mb-14">
+
+          <p className="text-[#7a7a7a] mb-3 font-medium">
+
+            Campus Stationery Management
+
+          </p>
+
+          <h1 className="text-6xl font-black tracking-tight mb-4">
+
             Stationery Admin
+
           </h1>
 
-          <p className="text-gray-400">
-            Manage stationery inventory and orders.
+          <p className="text-[#6d6d6d] text-lg">
+
+            Manage inventory, orders and supplies.
+
           </p>
 
         </div>
 
+        {/* STATS */}
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-14">
+
+          <div className="bg-white border border-[#ececec] rounded-[32px] p-8 shadow-sm">
+
+            <div className="w-16 h-16 rounded-3xl bg-[#eef2ff] flex items-center justify-center mb-6">
+
+              <Package
+                size={28}
+                className="text-blue-600"
+              />
+
+            </div>
+
+            <p className="text-[#7a7a7a] mb-3">
+
+              Total Products
+
+            </p>
+
+            <h2 className="text-5xl font-black tracking-tight">
+
+              {items.length}
+
+            </h2>
+
+          </div>
+
+          <div className="bg-white border border-[#ececec] rounded-[32px] p-8 shadow-sm">
+
+            <div className="w-16 h-16 rounded-3xl bg-[#fff4e8] flex items-center justify-center mb-6">
+
+              <ClipboardList
+                size={28}
+                className="text-orange-500"
+              />
+
+            </div>
+
+            <p className="text-[#7a7a7a] mb-3">
+
+              Total Orders
+
+            </p>
+
+            <h2 className="text-5xl font-black tracking-tight">
+
+              {orders.length}
+
+            </h2>
+
+          </div>
+
+          <div className="bg-white border border-[#ececec] rounded-[32px] p-8 shadow-sm">
+
+            <div className="w-16 h-16 rounded-3xl bg-[#ecfdf3] flex items-center justify-center mb-6">
+
+              <IndianRupee
+                size={28}
+                className="text-green-600"
+              />
+
+            </div>
+
+            <p className="text-[#7a7a7a] mb-3">
+
+              Revenue
+
+            </p>
+
+            <h2 className="text-5xl font-black tracking-tight">
+
+              ₹{totalRevenue}
+
+            </h2>
+
+          </div>
+
+        </div>
+
         {/* ADD ITEM */}
-        <div className="bg-white/5 border border-white/10 rounded-3xl p-8 mb-12">
 
-          <h2 className="text-3xl font-semibold mb-8">
-            Add Stationery Item
-          </h2>
+        <div className="bg-white border border-[#ececec] rounded-[36px] p-8 shadow-sm mb-16">
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="flex items-center gap-4 mb-8">
+
+            <div className="w-16 h-16 rounded-3xl bg-[#eef2ff] flex items-center justify-center">
+
+              <Plus
+                size={28}
+                className="text-blue-600"
+              />
+
+            </div>
+
+            <div>
+
+              <h2 className="text-3xl font-black tracking-tight">
+
+                Add Stationery Item
+
+              </h2>
+
+              <p className="text-[#7a7a7a]">
+
+                Create new store inventory items
+
+              </p>
+
+            </div>
+
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
 
             <input
               type="text"
@@ -200,7 +353,7 @@ export default function StationeryAdmin() {
                     e.target.value,
                 })
               }
-              className="bg-black border border-white/10 rounded-2xl px-5 py-4 outline-none"
+              className="bg-[#f8f8f8] border border-[#ececec] rounded-2xl px-5 py-4 outline-none"
             />
 
             <input
@@ -214,7 +367,7 @@ export default function StationeryAdmin() {
                     e.target.value,
                 })
               }
-              className="bg-black border border-white/10 rounded-2xl px-5 py-4 outline-none"
+              className="bg-[#f8f8f8] border border-[#ececec] rounded-2xl px-5 py-4 outline-none"
             />
 
             <input
@@ -228,7 +381,7 @@ export default function StationeryAdmin() {
                     e.target.value,
                 })
               }
-              className="bg-black border border-white/10 rounded-2xl px-5 py-4 outline-none"
+              className="bg-[#f8f8f8] border border-[#ececec] rounded-2xl px-5 py-4 outline-none"
             />
 
             <input
@@ -242,7 +395,7 @@ export default function StationeryAdmin() {
                     e.target.value,
                 })
               }
-              className="bg-black border border-white/10 rounded-2xl px-5 py-4 outline-none"
+              className="bg-[#f8f8f8] border border-[#ececec] rounded-2xl px-5 py-4 outline-none"
             />
 
             <input
@@ -256,14 +409,14 @@ export default function StationeryAdmin() {
                     e.target.value,
                 })
               }
-              className="bg-black border border-white/10 rounded-2xl px-5 py-4 outline-none"
+              className="bg-[#f8f8f8] border border-[#ececec] rounded-2xl px-5 py-4 outline-none"
             />
 
           </div>
 
           <button
             onClick={addItem}
-            className="mt-8 bg-white text-black px-8 py-4 rounded-full font-semibold hover:bg-gray-200 transition"
+            className="mt-8 bg-[#111111] text-white px-8 py-4 rounded-2xl font-semibold hover:opacity-90 transition"
           >
 
             Add Item
@@ -272,69 +425,163 @@ export default function StationeryAdmin() {
 
         </div>
 
-        {/* ITEMS */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+        {/* INVENTORY */}
 
-          {items.map(
-            (item) => (
+        <div className="mb-20">
 
-              <div
-                key={item._id}
-                className="bg-white/5 border border-white/10 rounded-3xl p-6"
-              >
+          <div className="flex items-center gap-4 mb-10">
 
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="w-full h-52 object-cover rounded-2xl mb-5"
-                />
+            <div className="w-16 h-16 rounded-3xl bg-[#eef2ff] flex items-center justify-center">
 
-                <h2 className="text-2xl font-semibold mb-2">
-                  {item.name}
-                </h2>
+              <PencilRuler
+                size={28}
+                className="text-blue-600"
+              />
 
-                <p className="text-gray-400 mb-2">
-                  {item.category}
-                </p>
+            </div>
 
-                <p className="text-3xl font-bold mb-3">
-                  ₹{item.price}
-                </p>
+            <div>
 
-                <p className="text-sm text-gray-500 mb-5">
-                  Stock:
-                  {" "}
-                  {item.stock}
-                </p>
+              <h2 className="text-5xl font-black tracking-tight">
 
-                <button
-                  onClick={() =>
-                    deleteItem(
-                      item._id
-                    )
-                  }
-                  className="w-full bg-red-500 text-white py-3 rounded-2xl font-semibold hover:bg-red-600 transition"
+                Inventory
+
+              </h2>
+
+              <p className="text-[#7a7a7a]">
+
+                Current stationery products
+
+              </p>
+
+            </div>
+
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+
+            {items.map(
+              (item) => (
+
+                <motion.div
+                  key={item._id}
+                  whileHover={{
+                    y: -4,
+                  }}
+                  transition={{
+                    duration: 0.2,
+                  }}
+                  className="bg-white border border-[#ececec] rounded-[32px] p-6 shadow-sm"
                 >
 
-                  Delete
+                  <div className="w-full h-56 overflow-hidden rounded-3xl bg-[#f4f4f4] mb-6">
 
-                </button>
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-full h-full object-cover"
+                    />
 
-              </div>
+                  </div>
 
-            )
-          )}
+                  <div className="flex justify-between items-start mb-4">
+
+                    <div>
+
+                      <h2 className="text-2xl font-black tracking-tight mb-2">
+
+                        {item.name}
+
+                      </h2>
+
+                      <p className="text-[#7a7a7a]">
+
+                        {item.category}
+
+                      </p>
+
+                    </div>
+
+                    <div className="bg-[#f6f7fb] px-4 py-2 rounded-2xl font-bold">
+
+                      ₹{item.price}
+
+                    </div>
+
+                  </div>
+
+                  <div className="bg-[#fafafa] border border-[#ececec] rounded-2xl p-4 mb-6">
+
+                    <p className="text-[#8a8a8a] text-sm mb-2">
+
+                      Available Stock
+
+                    </p>
+
+                    <h3 className="text-3xl font-black tracking-tight">
+
+                      {item.stock}
+
+                    </h3>
+
+                  </div>
+
+                  <button
+                    onClick={() =>
+                      deleteItem(
+                        item._id
+                      )
+                    }
+                    className="w-full bg-red-50 text-red-600 py-4 rounded-2xl font-semibold hover:bg-red-100 transition flex items-center justify-center gap-2"
+                  >
+
+                    <Trash2 size={18} />
+
+                    Delete Item
+
+                  </button>
+
+                </motion.div>
+
+              )
+            )}
+
+          </div>
 
         </div>
 
-        {/* ORDERS SECTION */}
+        {/* ORDERS */}
+
         <div>
 
-          <h2 className="text-4xl font-semibold mb-10">
+          <div className="flex items-center gap-4 mb-10">
 
-            Stationery Orders
+            <div className="w-16 h-16 rounded-3xl bg-[#eef2ff] flex items-center justify-center">
 
-          </h2>
+              <ClipboardList
+                size={28}
+                className="text-blue-600"
+              />
+
+            </div>
+
+            <div>
+
+              <h2 className="text-5xl font-black tracking-tight">
+
+                Orders
+
+              </h2>
+
+              <p className="text-[#7a7a7a]">
+
+                Manage student stationery purchases
+
+              </p>
+
+            </div>
+
+          </div>
 
           <div className="space-y-8">
 
@@ -343,20 +590,22 @@ export default function StationeryAdmin() {
 
                 <div
                   key={order._id}
-                  className="bg-white/5 border border-white/10 rounded-3xl p-8"
+                  className="bg-white border border-[#ececec] rounded-[32px] p-8 shadow-sm"
                 >
 
-                  <div className="flex justify-between items-start mb-6">
+                  {/* TOP */}
+
+                  <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-6 mb-8">
 
                     <div>
 
-                      <h3 className="text-2xl font-semibold">
+                      <h3 className="text-3xl font-black tracking-tight mb-3">
 
                         {order.userName}
 
                       </h3>
 
-                      <p className="text-gray-400 mt-2">
+                      <p className="text-[#7a7a7a]">
 
                         {new Date(
                           order.createdAt
@@ -366,7 +615,7 @@ export default function StationeryAdmin() {
 
                     </div>
 
-                    <div className="bg-white text-black px-5 py-2 rounded-full font-semibold">
+                    <div className="bg-[#111111] text-white px-5 py-3 rounded-2xl font-semibold w-fit">
 
                       {order.status}
 
@@ -374,7 +623,9 @@ export default function StationeryAdmin() {
 
                   </div>
 
-                  <div className="space-y-3 mb-6">
+                  {/* ITEMS */}
+
+                  <div className="space-y-4 mb-8">
 
                     {order.items.map(
                       (
@@ -384,20 +635,28 @@ export default function StationeryAdmin() {
 
                         <div
                           key={index}
-                          className="flex justify-between"
+                          className="flex justify-between items-center border-b border-[#ececec] pb-4"
                         >
 
-                          <p>
+                          <div>
 
-                            {item.name}
-                            {" "}
-                            ×
-                            {" "}
-                            {item.quantity}
+                            <h3 className="text-xl font-semibold">
 
-                          </p>
+                              {item.name}
 
-                          <p>
+                            </h3>
+
+                            <p className="text-[#7a7a7a] mt-1">
+
+                              Quantity:
+                              {" "}
+                              {item.quantity}
+
+                            </p>
+
+                          </div>
+
+                          <p className="text-xl font-bold">
 
                             ₹
                             {item.price *
@@ -412,18 +671,17 @@ export default function StationeryAdmin() {
 
                   </div>
 
-                  <div className="flex justify-between items-center">
+                  {/* BOTTOM */}
 
-                    <h3 className="text-2xl font-bold">
+                  <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-6">
 
-                      Total:
-                      {" "}
-                      ₹
-                      {order.totalPrice}
+                    <h3 className="text-3xl font-black tracking-tight">
+
+                      ₹{order.totalPrice}
 
                     </h3>
 
-                    <div className="flex gap-3">
+                    <div className="flex flex-wrap gap-3">
 
                       <button
                         onClick={() =>
@@ -432,8 +690,10 @@ export default function StationeryAdmin() {
                             "Preparing"
                           )
                         }
-                        className="bg-yellow-500 text-black px-4 py-2 rounded-xl font-semibold"
+                        className="bg-amber-100 text-amber-700 px-5 py-3 rounded-2xl font-semibold flex items-center gap-2"
                       >
+
+                        <Clock3 size={18} />
 
                         Preparing
 
@@ -446,7 +706,7 @@ export default function StationeryAdmin() {
                             "Ready"
                           )
                         }
-                        className="bg-blue-500 text-white px-4 py-2 rounded-xl font-semibold"
+                        className="bg-blue-100 text-blue-700 px-5 py-3 rounded-2xl font-semibold"
                       >
 
                         Ready
@@ -460,8 +720,10 @@ export default function StationeryAdmin() {
                             "Delivered"
                           )
                         }
-                        className="bg-green-500 text-black px-4 py-2 rounded-xl font-semibold"
+                        className="bg-green-100 text-green-700 px-5 py-3 rounded-2xl font-semibold flex items-center gap-2"
                       >
+
+                        <BadgeCheck size={18} />
 
                         Delivered
 

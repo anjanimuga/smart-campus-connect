@@ -35,6 +35,10 @@ import PrintUpload from "./pages/PrintUpload";
 import PrintAdmin from "./pages/PrintAdmin";
 import PrintOrders from "./pages/PrintOrders";
 
+import LandingNew from "./pages/LandingNew";
+
+import CanteenLanding from "./pages/CanteenLanding";
+
 function App() {
 
   return (
@@ -47,7 +51,7 @@ function App() {
 
         <Route
           path="/"
-          element={<Landing />}
+          element={<LandingNew />}
         />
 
         <Route
@@ -71,14 +75,23 @@ function App() {
           }
         />
 
-        <Route
-          path="/canteen"
-          element={
-            <ProtectedRoute>
-              <Canteen />
-            </ProtectedRoute>
-          }
-        />
+       <Route
+  path="/canteen"
+  element={
+    <ProtectedRoute>
+      <CanteenLanding />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/canteen-menu"
+  element={
+    <ProtectedRoute>
+      <Canteen />
+    </ProtectedRoute>
+  }
+/>
 
         <Route
   path="/print-upload"

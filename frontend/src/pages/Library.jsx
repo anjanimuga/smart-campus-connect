@@ -7,7 +7,20 @@ import {
   useNavigate,
 } from "react-router-dom";
 
+import {
+  motion,
+} from "framer-motion";
+
+import {
+  LibraryBig,
+  Search,
+  BookmarkCheck,
+  Armchair,
+} from "lucide-react";
+
 import API from "../services/api";
+
+import toast from "react-hot-toast";
 
 export default function Library() {
 
@@ -84,45 +97,76 @@ export default function Library() {
 
         fetchSeats();
 
-        alert(
-          "Seat booked successfully"
-        );
+       toast.success("Seat booked successfully")
 
       } catch (error) {
 
         console.log(error);
-
-        alert(
-          error.response?.data?.message ||
-          "Booking failed"
-        );
-
+toast.error(
+  error.response?.data?.message ||
+  "Booking failed"
+)
       }
 
     };
 
   return (
 
-    <div className="min-h-screen bg-[#151312] text-white px-8 py-10">
+    <div className="min-h-screen bg-[#f6f7fb] px-8 py-10 font-['Outfit'] overflow-hidden relative">
 
-      <div className="max-w-7xl mx-auto">
+      {/* BACKGROUND LIGHTS */}
+
+      <div className="absolute top-[-10%] left-[-5%] w-[500px] h-[500px] rounded-full bg-blue-100/50 blur-3xl" />
+
+      <div className="absolute bottom-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-violet-100/40 blur-3xl" />
+
+      <div className="relative z-10 max-w-7xl mx-auto">
 
         {/* HEADER */}
-        <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-6 mb-12">
+
+        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-8 mb-16">
 
           <div>
 
-            <h1 className="text-5xl font-semibold mb-3">
-              Library Seats
+            <div className="inline-flex items-center gap-3 bg-white border border-[#e5e7eb] px-5 py-3 rounded-full shadow-sm mb-6">
+
+              <LibraryBig
+                size={18}
+                className="text-[#4f46e5]"
+              />
+
+              <p className="text-[#6b7280] font-medium text-sm">
+
+                Smart Study Spaces
+
+              </p>
+
+            </div>
+
+            <h1 className="text-[70px] lg:text-[90px] leading-[0.95] font-black tracking-tight text-[#111827] mb-6">
+
+              Campus
+              <br />
+
+              <span className="bg-gradient-to-r from-[#4f46e5] to-[#7c3aed] bg-clip-text text-transparent">
+
+                Library
+
+              </span>
+
             </h1>
 
-            <p className="text-gray-400">
-              Reserve your study space in real time.
+            <p className="text-xl text-[#6b7280] leading-relaxed max-w-2xl">
+
+              Reserve premium study spaces, explore books and manage your library experience in real time.
+
             </p>
 
           </div>
 
-          <div className="flex gap-4">
+          {/* BUTTONS */}
+
+          <div className="flex flex-wrap gap-5">
 
             <button
               onClick={() =>
@@ -130,9 +174,13 @@ export default function Library() {
                   "/book-search"
                 )
               }
-              className="bg-white/10 border border-white/10 text-white px-6 py-3 rounded-full font-semibold hover:bg-white/20 transition"
+              className="flex items-center gap-3 bg-white border border-[#e5e7eb] text-[#111827] px-7 py-4 rounded-full font-semibold shadow-sm hover:scale-105 transition duration-300"
             >
+
+              <Search size={18} />
+
               Search Books
+
             </button>
 
             <button
@@ -141,32 +189,66 @@ export default function Library() {
                   "/my-library-bookings"
                 )
               }
-              className="bg-white text-black px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition"
+              className="flex items-center gap-3 bg-gradient-to-r from-[#4f46e5] to-[#7c3aed] text-white px-7 py-4 rounded-full font-semibold shadow-[0_10px_40px_rgba(124,58,237,0.25)] hover:scale-105 transition duration-300"
             >
-              My Library Bookings
+
+              <BookmarkCheck size={18} />
+
+              My Bookings
+
             </button>
 
           </div>
 
         </div>
 
-        {/* SEAT GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* SEATS GRID */}
+
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
 
           {seats.map(
-            (seat) => (
+            (
+              seat,
+              index
+            ) => (
 
-              <div
+              <motion.div
                 key={seat._id}
-                className="bg-white/5 border border-white/10 rounded-3xl p-6"
+                initial={{
+                  opacity: 0,
+                  y: 30,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                transition={{
+                  duration: 0.4,
+                  delay:
+                    index * 0.05,
+                }}
+                whileHover={{
+                  y: -8,
+                }}
+                className="bg-white/80 backdrop-blur-2xl border border-white rounded-[34px] p-7 shadow-[0_15px_50px_rgba(0,0,0,0.05)] transition duration-500"
               >
 
                 {/* TOP */}
-                <div className="flex justify-between items-start mb-6">
+
+                <div className="flex justify-between items-start mb-8">
 
                   <div>
 
-                    <h2 className="text-3xl font-semibold mb-2">
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#eef2ff] to-[#ede9fe] flex items-center justify-center mb-5">
+
+                      <Armchair
+                        size={28}
+                        className="text-[#4f46e5]"
+                      />
+
+                    </div>
+
+                    <h2 className="text-4xl font-black tracking-tight text-[#111827] mb-3">
 
                       Seat
                       {" "}
@@ -176,7 +258,7 @@ export default function Library() {
 
                     </h2>
 
-                    <p className="text-gray-400">
+                    <p className="text-[#6b7280] font-medium">
 
                       Floor:
                       {" "}
@@ -186,7 +268,7 @@ export default function Library() {
 
                     </p>
 
-                    <p className="text-gray-400 mt-1">
+                    <p className="text-[#9ca3af] mt-2">
 
                       {
                         seat.section
@@ -197,11 +279,12 @@ export default function Library() {
                   </div>
 
                   {/* STATUS */}
+
                   {
 
                     seat.isBooked ? (
 
-                      <div className="bg-red-500 text-white px-4 py-2 rounded-full text-sm">
+                      <div className="bg-red-100 text-red-600 px-5 py-2 rounded-full text-sm font-semibold">
 
                         Occupied
 
@@ -209,7 +292,7 @@ export default function Library() {
 
                     ) : (
 
-                      <div className="bg-green-500 text-black px-4 py-2 rounded-full text-sm font-semibold">
+                      <div className="bg-green-100 text-green-700 px-5 py-2 rounded-full text-sm font-semibold">
 
                         Available
 
@@ -222,20 +305,25 @@ export default function Library() {
                 </div>
 
                 {/* BOOKED BY */}
+
                 {
 
                   seat.isBooked && (
 
-                    <div className="mb-6">
+                    <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-2xl p-5 mb-7">
 
-                      <p className="text-gray-400 text-sm">
+                      <p className="text-[#9ca3af] text-sm mb-2">
+
                         Booked By
+
                       </p>
 
-                      <p className="text-lg mt-1">
+                      <p className="text-lg font-semibold text-[#111827]">
+
                         {
                           seat.bookedBy
                         }
+
                       </p>
 
                     </div>
@@ -245,13 +333,14 @@ export default function Library() {
                 }
 
                 {/* BUTTON */}
+
                 {
 
                   seat.isBooked ? (
 
                     <button
                       disabled
-                      className="w-full bg-gray-700 text-gray-400 py-4 rounded-2xl cursor-not-allowed"
+                      className="w-full bg-[#eef2f7] text-[#9ca3af] py-4 rounded-2xl font-semibold cursor-not-allowed"
                     >
 
                       Unavailable
@@ -266,7 +355,7 @@ export default function Library() {
                           seat._id
                         )
                       }
-                      className="w-full bg-white text-black py-4 rounded-2xl font-semibold hover:bg-gray-200 transition"
+                      className="w-full bg-gradient-to-r from-[#4f46e5] to-[#7c3aed] text-white py-4 rounded-2xl font-semibold shadow-[0_10px_30px_rgba(124,58,237,0.25)] hover:scale-[1.02] transition duration-300"
                     >
 
                       Book Seat
@@ -277,7 +366,7 @@ export default function Library() {
 
                 }
 
-              </div>
+              </motion.div>
 
             )
           )}

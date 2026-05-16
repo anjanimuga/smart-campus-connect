@@ -3,6 +3,14 @@ import {
   useState,
 } from "react";
 
+import { motion } from "framer-motion";
+
+import {
+  ClipboardList,
+  Clock3,
+  Receipt,
+} from "lucide-react";
+
 import API from "../services/api";
 
 export default function Orders() {
@@ -80,41 +88,70 @@ export default function Orders() {
 
   return (
 
-    <div className="min-h-screen bg-[#151312] text-white px-6 py-10">
+    <div className="min-h-screen bg-[#faf7f2] px-6 py-10 font-['Outfit']">
 
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-6xl mx-auto">
 
         {/* HEADER */}
-        <div className="mb-10">
 
-          <h1 className="text-5xl font-semibold mb-3">
+        <div className="mb-14">
+
+          <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white border border-[#ece7df] shadow-sm mb-6">
+
+            <span className="w-2.5 h-2.5 rounded-full bg-orange-400" />
+
+            <p className="text-[#5e5246] font-medium text-sm">
+              Live Order Tracking
+            </p>
+
+          </div>
+
+          <h1 className="text-6xl font-black text-[#1f1b16] tracking-tight mb-4">
+
             My Orders
+
           </h1>
 
-          <p className="text-gray-400">
-            Track your live canteen orders
+          <p className="text-[#6b6258] text-xl leading-relaxed max-w-2xl">
+
+            Track your active and previous canteen orders in real time.
+
           </p>
 
         </div>
 
         {/* EMPTY */}
+
         {orders.length === 0 ? (
 
-          <div className="bg-white/5 border border-white/10 rounded-3xl p-10 text-center">
+          <div className="bg-white border border-[#ece7df] rounded-[34px] p-16 text-center shadow-sm">
 
-            <h2 className="text-2xl font-semibold mb-3">
+            <div className="w-24 h-24 rounded-full bg-[#f7f2eb] flex items-center justify-center mx-auto mb-8">
+
+              <ClipboardList
+                size={42}
+                className="text-[#1f1b16]"
+              />
+
+            </div>
+
+            <h2 className="text-4xl font-black text-[#1f1b16] mb-4">
+
               No Orders Yet
+
             </h2>
 
-            <p className="text-gray-400">
-              Place your first order from the canteen.
+            <p className="text-[#8c8378] text-lg">
+
+              Place your first order from the campus canteen.
+
             </p>
 
           </div>
 
         ) : (
 
-          <div className="space-y-8">
+          <div className="space-y-10">
 
             {orders.map(
               (
@@ -122,17 +159,41 @@ export default function Orders() {
                 index
               ) => (
 
-                <div
+                <motion.div
                   key={index}
-                  className="bg-white/5 border border-white/10 rounded-3xl p-8"
+                  initial={{
+                    opacity: 0,
+                    y: 30,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  transition={{
+                    duration: 0.4,
+                    delay: index * 0.05,
+                  }}
+                  whileHover={{
+                    y: -4,
+                  }}
+                  className="bg-white border border-[#ece7df] rounded-[34px] p-8 shadow-sm hover:shadow-lg transition duration-300"
                 >
 
                   {/* TOP */}
-                  <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-8 mb-8">
+
+                  <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-8 mb-10">
+
+                    {/* LEFT */}
 
                     <div>
 
-                      <h2 className="text-3xl font-semibold mb-3">
+                      <div className="inline-flex px-4 py-2 rounded-full bg-[#f7f2eb] text-[#8a7864] text-sm font-medium mb-5">
+
+                        Active Order
+
+                      </div>
+
+                      <h2 className="text-4xl font-black text-[#1f1b16] mb-4">
 
                         {
                           order.orderNumber
@@ -140,31 +201,57 @@ export default function Orders() {
 
                       </h2>
 
-                      <p className="text-gray-400 mb-2">
+                      <div className="flex flex-col gap-3">
 
-                        Token:
-                        {" "}
-                        {
-                          order.tokenNumber
-                        }
+                        <div className="flex items-center gap-3 text-[#6b6258]">
 
-                      </p>
+                          <Receipt size={18} />
 
-                      <p className="text-gray-400">
+                          <p>
 
-                        Pickup:
-                        {" "}
-                        {
-                          order.pickupTime
-                        }
+                            Token:
+                            {" "}
+                            <span className="font-semibold text-[#1f1b16]">
 
-                      </p>
+                              {
+                                order.tokenNumber
+                              }
+
+                            </span>
+
+                          </p>
+
+                        </div>
+
+                        <div className="flex items-center gap-3 text-[#6b6258]">
+
+                          <Clock3 size={18} />
+
+                          <p>
+
+                            Pickup:
+                            {" "}
+                            <span className="font-semibold text-[#1f1b16]">
+
+                              {
+                                order.pickupTime
+                              }
+
+                            </span>
+
+                          </p>
+
+                        </div>
+
+                      </div>
 
                     </div>
 
+                    {/* RIGHT */}
+
                     <div className="lg:text-right">
 
-                      <div className="inline-block bg-white/10 px-5 py-2 rounded-full text-sm mb-3">
+                      <div className="inline-block bg-[#f7f2eb] text-[#1f1b16] px-5 py-3 rounded-full text-sm font-semibold mb-4">
 
                         {
                           order.status
@@ -172,13 +259,17 @@ export default function Orders() {
 
                       </div>
 
-                      <p className="text-gray-400">
+                      <p className="text-[#8c8378]">
 
                         Ordered By:
                         {" "}
-                        {
-                          order.customerName
-                        }
+                        <span className="font-semibold text-[#1f1b16]">
+
+                          {
+                            order.customerName
+                          }
+
+                        </span>
 
                       </p>
 
@@ -187,7 +278,8 @@ export default function Orders() {
                   </div>
 
                   {/* ITEMS */}
-                  <div className="space-y-4 mb-8">
+
+                  <div className="space-y-5 mb-10">
 
                     {order.items?.map(
                       (
@@ -197,12 +289,14 @@ export default function Orders() {
 
                         <div
                           key={itemIndex}
-                          className="flex justify-between items-center border-b border-white/10 pb-4"
+                          className="flex flex-col md:flex-row md:justify-between md:items-center gap-5 border-b border-[#ece7df] pb-5"
                         >
+
+                          {/* ITEM INFO */}
 
                           <div>
 
-                            <p className="text-xl font-medium">
+                            <p className="text-2xl font-bold text-[#1f1b16] mb-2">
 
                               {item.name}
 
@@ -210,13 +304,17 @@ export default function Orders() {
 
                             {item.flavour && (
 
-                              <p className="text-gray-400 text-sm mt-1">
+                              <p className="text-[#8c8378]">
 
                                 Flavour:
                                 {" "}
-                                {
-                                  item.flavour
-                                }
+                                <span className="font-semibold text-[#1f1b16]">
+
+                                  {
+                                    item.flavour
+                                  }
+
+                                </span>
 
                               </p>
 
@@ -224,19 +322,25 @@ export default function Orders() {
 
                           </div>
 
-                          <div className="text-right">
+                          {/* ITEM META */}
 
-                            <p className="text-lg">
+                          <div className="text-left md:text-right">
+
+                            <p className="text-lg text-[#6b6258] mb-2">
 
                               Qty:
                               {" "}
-                              {
-                                item.quantity
-                              }
+                              <span className="font-semibold text-[#1f1b16]">
+
+                                {
+                                  item.quantity
+                                }
+
+                              </span>
 
                             </p>
 
-                            <p className="text-gray-300">
+                            <p className="text-2xl font-black text-[#1f1b16]">
 
                               ₹
                               {
@@ -256,19 +360,38 @@ export default function Orders() {
                   </div>
 
                   {/* TOTAL */}
-                  <div className="flex justify-between items-center">
 
-                    <h2 className="text-2xl font-semibold">
-                      Total
-                    </h2>
+                  <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-5">
 
-                    <h2 className="text-3xl font-semibold">
-                      ₹{order.total}
-                    </h2>
+                    <div>
+
+                      <p className="text-[#8c8378] text-lg mb-2">
+
+                        Total Amount
+
+                      </p>
+
+                      <h2 className="text-5xl font-black text-[#1f1b16]">
+
+                        ₹{order.total}
+
+                      </h2>
+
+                    </div>
+
+                    <div className="bg-[#f7f2eb] px-6 py-4 rounded-2xl">
+
+                      <p className="text-[#6b6258] font-medium">
+
+                        Live updates enabled
+
+                      </p>
+
+                    </div>
 
                   </div>
 
-                </div>
+                </motion.div>
 
               )
             )}

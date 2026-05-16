@@ -3,6 +3,19 @@ import {
   useState,
 } from "react";
 
+import {
+  motion,
+} from "framer-motion";
+
+import {
+  Library,
+  BookOpen,
+  Plus,
+  Trash2,
+  MapPinned,
+  Layers3,
+} from "lucide-react";
+
 import API from "../services/api";
 
 export default function BookAdmin() {
@@ -21,6 +34,7 @@ export default function BookAdmin() {
     });
 
   // FETCH BOOKS
+
   const fetchBooks =
     async () => {
 
@@ -50,6 +64,7 @@ export default function BookAdmin() {
   }, []);
 
   // ADD BOOK
+
   const addBook =
     async () => {
 
@@ -80,6 +95,7 @@ export default function BookAdmin() {
     };
 
   // DELETE BOOK
+
   const deleteBook =
     async (id) => {
 
@@ -101,31 +117,68 @@ export default function BookAdmin() {
 
   return (
 
-    <div className="min-h-screen bg-[#151312] text-white px-8 py-10">
+    <div className="min-h-screen bg-[#f6f7fb] px-8 py-8 font-['Outfit'] text-[#111111]">
 
       <div className="max-w-7xl mx-auto">
 
         {/* HEADER */}
+
         <div className="mb-14">
 
-          <h1 className="text-5xl font-semibold mb-3">
+          <p className="text-[#7a7a7a] mb-3 font-medium">
+
+            Campus Library Management
+
+          </p>
+
+          <h1 className="text-6xl font-black tracking-tight mb-4">
+
             Book Inventory
+
           </h1>
 
-          <p className="text-gray-400 text-lg">
-            Manage library books and locations.
+          <p className="text-[#6d6d6d] text-lg">
+
+            Manage books, shelves and library locations.
+
           </p>
 
         </div>
 
         {/* ADD BOOK */}
-        <div className="bg-white/5 border border-white/10 rounded-3xl p-8 mb-14">
 
-          <h2 className="text-3xl font-semibold mb-8">
-            Add Book
-          </h2>
+        <div className="bg-white border border-[#ececec] rounded-[36px] p-8 shadow-sm mb-14">
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="flex items-center gap-4 mb-8">
+
+            <div className="w-16 h-16 rounded-3xl bg-[#eef2ff] flex items-center justify-center">
+
+              <Plus
+                size={28}
+                className="text-blue-600"
+              />
+
+            </div>
+
+            <div>
+
+              <h2 className="text-3xl font-black tracking-tight">
+
+                Add New Book
+
+              </h2>
+
+              <p className="text-[#7a7a7a]">
+
+                Create and organize your library inventory
+
+              </p>
+
+            </div>
+
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
 
             <input
               type="text"
@@ -138,7 +191,7 @@ export default function BookAdmin() {
                     e.target.value,
                 })
               }
-              className="bg-black border border-white/10 rounded-2xl px-5 py-4 outline-none"
+              className="bg-[#f8f8f8] border border-[#ececec] rounded-2xl px-5 py-4 outline-none"
             />
 
             <input
@@ -152,7 +205,7 @@ export default function BookAdmin() {
                     e.target.value,
                 })
               }
-              className="bg-black border border-white/10 rounded-2xl px-5 py-4 outline-none"
+              className="bg-[#f8f8f8] border border-[#ececec] rounded-2xl px-5 py-4 outline-none"
             />
 
             <input
@@ -166,7 +219,7 @@ export default function BookAdmin() {
                     e.target.value,
                 })
               }
-              className="bg-black border border-white/10 rounded-2xl px-5 py-4 outline-none"
+              className="bg-[#f8f8f8] border border-[#ececec] rounded-2xl px-5 py-4 outline-none"
             />
 
             <input
@@ -180,7 +233,7 @@ export default function BookAdmin() {
                     e.target.value,
                 })
               }
-              className="bg-black border border-white/10 rounded-2xl px-5 py-4 outline-none"
+              className="bg-[#f8f8f8] border border-[#ececec] rounded-2xl px-5 py-4 outline-none"
             />
 
             <input
@@ -194,7 +247,7 @@ export default function BookAdmin() {
                     e.target.value,
                 })
               }
-              className="bg-black border border-white/10 rounded-2xl px-5 py-4 outline-none"
+              className="bg-[#f8f8f8] border border-[#ececec] rounded-2xl px-5 py-4 outline-none"
             />
 
             <input
@@ -208,109 +261,210 @@ export default function BookAdmin() {
                     e.target.value,
                 })
               }
-              className="bg-black border border-white/10 rounded-2xl px-5 py-4 outline-none"
+              className="bg-[#f8f8f8] border border-[#ececec] rounded-2xl px-5 py-4 outline-none"
             />
 
           </div>
 
           <button
             onClick={addBook}
-            className="mt-8 bg-white text-black px-7 py-4 rounded-full font-semibold hover:bg-gray-200 transition"
+            className="mt-8 bg-[#111111] text-white px-8 py-4 rounded-2xl font-semibold hover:opacity-90 transition"
           >
+
             Add Book
+
           </button>
 
         </div>
 
         {/* BOOK LIST */}
+
         <div>
 
-          <h2 className="text-4xl font-semibold mb-8">
-            Library Books
-          </h2>
+          <div className="flex items-center gap-4 mb-10">
+
+            <div className="w-16 h-16 rounded-3xl bg-[#eef2ff] flex items-center justify-center">
+
+              <Library
+                size={28}
+                className="text-blue-600"
+              />
+
+            </div>
+
+            <div>
+
+              <h2 className="text-5xl font-black tracking-tight">
+
+                Library Books
+
+              </h2>
+
+              <p className="text-[#7a7a7a] mt-1">
+
+                {books.length} Books Available
+
+              </p>
+
+            </div>
+
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 
             {books.map(
               (book) => (
 
-                <div
+                <motion.div
                   key={book._id}
-                  className="bg-white/5 border border-white/10 rounded-3xl p-7"
+                  whileHover={{
+                    y: -4,
+                  }}
+                  transition={{
+                    duration: 0.2,
+                  }}
+                  className="bg-white border border-[#ececec] rounded-[32px] p-8 shadow-sm"
                 >
 
-                  <h2 className="text-3xl font-semibold mb-3">
+                  {/* TOP */}
 
-                    {
-                      book.bookName
-                    }
+                  <div className="flex justify-between items-start mb-8">
 
-                  </h2>
+                    <div className="flex gap-4">
 
-                  <p className="text-gray-400 mb-2">
+                      <div className="w-16 h-16 rounded-3xl bg-[#f4f4f4] flex items-center justify-center flex-shrink-0">
 
-                    Author:
-                    {" "}
-                    {
-                      book.author
-                    }
+                        <BookOpen
+                          size={28}
+                          className="text-[#111111]"
+                        />
 
-                  </p>
+                      </div>
 
-                  <p className="text-gray-400 mb-2">
+                      <div>
 
-                    Department:
-                    {" "}
-                    {
-                      book.department
-                    }
+                        <h2 className="text-3xl font-black tracking-tight leading-tight mb-2">
 
-                  </p>
+                          {
+                            book.bookName
+                          }
 
-                  <p className="text-gray-400 mb-2">
+                        </h2>
 
-                    Floor:
-                    {" "}
-                    {
-                      book.floor
-                    }
+                        <p className="text-[#6d6d6d]">
 
-                  </p>
+                          {
+                            book.author
+                          }
 
-                  <p className="text-gray-400 mb-2">
+                        </p>
 
-                    Section:
-                    {" "}
-                    {
-                      book.section
-                    }
+                      </div>
 
-                  </p>
+                    </div>
 
-                  <p className="text-gray-400 mb-6">
+                    <button
+                      onClick={() =>
+                        deleteBook(
+                          book._id
+                        )
+                      }
+                      className="bg-red-50 hover:bg-red-100 transition text-red-600 w-12 h-12 rounded-2xl flex items-center justify-center"
+                    >
 
-                    Shelf:
-                    {" "}
-                    {
-                      book.shelf
-                    }
+                      <Trash2 size={18} />
 
-                  </p>
+                    </button>
 
-                  <button
-                    onClick={() =>
-                      deleteBook(
-                        book._id
-                      )
-                    }
-                    className="bg-red-500 text-white px-6 py-3 rounded-2xl font-semibold hover:bg-red-600 transition"
-                  >
+                  </div>
 
-                    Delete
+                  {/* DETAILS */}
 
-                  </button>
+                  <div className="grid grid-cols-2 gap-5">
 
-                </div>
+                    <div className="bg-[#fafafa] border border-[#ececec] rounded-3xl p-5">
+
+                      <p className="text-[#8a8a8a] text-sm mb-3">
+
+                        Department
+
+                      </p>
+
+                      <h3 className="text-xl font-black tracking-tight">
+
+                        {
+                          book.department
+                        }
+
+                      </h3>
+
+                    </div>
+
+                    <div className="bg-[#fafafa] border border-[#ececec] rounded-3xl p-5">
+
+                      <div className="flex items-center gap-2 text-[#8a8a8a] text-sm mb-3">
+
+                        <Layers3 size={15} />
+
+                        <p>
+                          Floor
+                        </p>
+
+                      </div>
+
+                      <h3 className="text-xl font-black tracking-tight">
+
+                        {
+                          book.floor
+                        }
+
+                      </h3>
+
+                    </div>
+
+                    <div className="bg-[#fafafa] border border-[#ececec] rounded-3xl p-5">
+
+                      <div className="flex items-center gap-2 text-[#8a8a8a] text-sm mb-3">
+
+                        <MapPinned size={15} />
+
+                        <p>
+                          Section
+                        </p>
+
+                      </div>
+
+                      <h3 className="text-xl font-black tracking-tight">
+
+                        {
+                          book.section
+                        }
+
+                      </h3>
+
+                    </div>
+
+                    <div className="bg-[#fafafa] border border-[#ececec] rounded-3xl p-5">
+
+                      <p className="text-[#8a8a8a] text-sm mb-3">
+
+                        Shelf
+
+                      </p>
+
+                      <h3 className="text-xl font-black tracking-tight">
+
+                        {
+                          book.shelf
+                        }
+
+                      </h3>
+
+                    </div>
+
+                  </div>
+
+                </motion.div>
 
               )
             )}
