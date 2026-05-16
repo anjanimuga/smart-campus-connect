@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-import canteenVideo from "../assets/canteen.mp4";
+import canteenVideo from "../assets/Canteen.mp4";
 
 export default function CanteenLanding() {
 
