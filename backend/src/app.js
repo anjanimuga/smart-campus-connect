@@ -21,6 +21,7 @@ app.use(
     origin: [
       "http://localhost:5173",
       "https://smart-campus-connect-iota.vercel.app",
+      "https://campusconnect-d0yzssavg-anjani-s-campusproject.vercel.app",
     ],
     credentials: true,
   })
